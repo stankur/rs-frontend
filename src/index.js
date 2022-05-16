@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import App from "./App";
-import AllOffers from "./routes/AllOffers";
+import AllOffers from "./routes/AllOffers/AllOffers";
 import MyOffers from "./routes/MyOffers";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import reportWebVitals from "./reportWebVitals";
 
@@ -15,7 +15,7 @@ root.render(
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" element={<App />}>
-					<Route path="" element={<AllOffers />} />
+					<Route path="" element={<Navigate to="/all-offers" />} />
 					<Route path="all-offers" element={<AllOffers />} />
 					<Route path="my-offers" element={<MyOffers />} />
 				</Route>
