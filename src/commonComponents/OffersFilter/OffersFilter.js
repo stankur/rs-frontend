@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import FilterGroup from "./FilterGroup";
 import { cloneDeep } from "lodash";
 
-import { getFilterOptions } from "../../../mockData";
+import { getFilterOptions } from "../../mockData";
 
 function OffersFilter() {
-	const options = { filter: getFilterOptions() };
+	const options = getFilterOptions();
 	const [filterJSON, setfilterJSON] = useState(options);
 
 	const getNotified = (updatedFilter, name) => {
@@ -29,7 +29,7 @@ function OffersFilter() {
 	return (
 		<form>
 			<FilterGroup
-				groupName=""
+				groupName="filter"
 				filterJSON={filterJSON}
 				filterOptions={options}
 				notify={getNotified}

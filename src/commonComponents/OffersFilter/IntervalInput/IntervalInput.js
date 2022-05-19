@@ -4,6 +4,14 @@ import { startCase } from "lodash";
 import Comparator from "./Comparator";
 import NumberHolder from "./NumberHolder";
 
+import styled from "styled-components";
+
+const InputName = styled.div`
+	font-family: sans-serif;
+	margin-bottom: 5px;
+	margin-top: 10px;
+`;
+
 function IntervalInput({ inputName, notify, interval }) {
 	console.log(
 		"IntervalInput asked to be created with interval of: " + interval
@@ -108,7 +116,7 @@ function IntervalInput({ inputName, notify, interval }) {
 	console.log("number given to NumberHolder: " + parseInterval().number);
 	return (
 		<div>
-			<div>{startCase(inputName)}</div>
+			<InputName>{startCase(inputName)}</InputName>
 
 			<Comparator
 				notify={changeComparator}

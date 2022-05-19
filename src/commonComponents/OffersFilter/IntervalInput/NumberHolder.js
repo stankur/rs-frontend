@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import styled from "styled-components";
+
+const SmallerInput = styled.input`
+	width: 25px;
+`;
 
 function NumberHolder({ notify, number }) {
 	console.log("number received by NumberHolder: " + number);
@@ -29,7 +34,9 @@ function NumberHolder({ notify, number }) {
 	};
 	console.log("display: " + display);
 
-	return <input type="text" value={display} onChange={notifyNewNumber} />;
+	return (
+		<SmallerInput type="text" value={display} onChange={notifyNewNumber} />
+	);
 }
 
 export default NumberHolder;
