@@ -3,35 +3,35 @@ import ExpandableTitle from "../ExpandableTitle";
 
 import styled from "styled-components";
 
-const ContainerDiv = styled.div`
-	display: inline-flex;
-	flex-direction: column;
+import ContainerDiv from "./ContainerDiv";
+import HighlightedText from "./HighlightedText";
 
-	padding: 12px 7px 7px 7px;
+import KeyValues from "./KeyValues";
 
-	border-radius: 5px;
+const RoomInfo = styled(HighlightedText).attrs(() => ({
+	backgroundColor: "#f4e0f8e6",
+}))`
 	box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 `;
 
-const RoomInfo = styled.span`
-	display: inline-flex;
-	padding: 5px;
-
-	background-color: #f4e0f8e6;
-	border-radius: 5px;
-
-	font-weight: bold;
-	margin-top: 5px;
+const AdditionalRoomInfo = styled(HighlightedText).attrs(() => ({
+	backgroundColor: "#f8ebf1e6",
+}))`
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 `;
 
-const AdditionalRoomInfo = styled(RoomInfo)`
-	background-color: #f8ebf1e6;
+const RoomInfoCollection = styled(ContainerDiv)`
+	margin-top: 10px;
+	background-color: ${(props) => {
+		return props.backgroundColor;
+	}};
 `;
 
-const RoomInfoCollection = styled.div`
-	font-family: sans-serif;
-	padding-top: 10px;
-	padding-right: 5px;
+const HighlightedValue = styled(HighlightedText).attrs(() => ({
+	backgroundColor: "#ffffff",
+}))`
+	font-weight: normal;
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 `;
 
 function RoomMinimized({ room, className }) {
@@ -42,37 +42,47 @@ function RoomMinimized({ room, className }) {
 	const floor = room["roomInfo"]["floor"];
 
 	return (
-		<RoomInfoCollection className={className}>
+		<RoomInfoCollection backgroundColor={"#faf0fbb1"} className={className}>
 			<div>
-				<RoomInfo>Residence Area: </RoomInfo> {residenceArea}
+				<KeyValues>
+					<RoomInfo>Residence Area: </RoomInfo>{" "}
+					<HighlightedValue>{residenceArea}</HighlightedValue>
+				</KeyValues>
 			</div>
 			<div>
-				<RoomInfo>Room: </RoomInfo> {roomType}
+				<KeyValues>
+					<RoomInfo>Room: </RoomInfo>{" "}
+					<HighlightedValue>{roomType}</HighlightedValue>
+				</KeyValues>
 			</div>
 			<div>
-				<RoomInfo>Washroom: </RoomInfo> {washroom}
+				<KeyValues>
+					<RoomInfo>Washroom: </RoomInfo>{" "}
+					<HighlightedValue>{washroom}</HighlightedValue>
+				</KeyValues>
 			</div>
 			<div>
-				<RoomInfo>Floor: </RoomInfo> {floor}
+				<KeyValues>
+					<RoomInfo>Floor: </RoomInfo>{" "}
+					<HighlightedValue>{floor}</HighlightedValue>
+				</KeyValues>
 			</div>
 			<div>
-				<RoomInfo>Building: </RoomInfo> {building}
+				<KeyValues>
+					<RoomInfo>Building: </RoomInfo>{" "}
+					<HighlightedValue>{building}</HighlightedValue>
+				</KeyValues>
 			</div>
 		</RoomInfoCollection>
 	);
 }
 
-const BoxedRoomMinimized = styled(RoomMinimized)`
-	padding: 0 7px 7px 7px;
-	border-radius: 5px;
-	box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-`;
-
 const BoxedRoomsContainer = styled.div`
 	display: flex;
 	flex-direction: row;
-	padding-top: 10px;
-	gap: 7px;
+	justify-content: space-evenly;
+
+	flex-wrap: wrap;
 `;
 
 function RoomsMininmized({ rooms }) {
@@ -85,18 +95,12 @@ function RoomsMininmized({ rooms }) {
 		return (
 			<BoxedRoomsContainer>
 				{rooms.map((room) => {
-					return <BoxedRoomMinimized room={room} />;
+					return <RoomMinimized room={room} />;
 				})}
 			</BoxedRoomsContainer>
 		);
 	}
 }
-
-const BoxedRoomExpanded = styled(RoomExpanded)`
-	padding: 0 7px 7px 7px;
-	border-radius: 5px;
-	box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-`;
 
 function RoomExpanded({ room, className }) {
 	const residenceArea = room["residenceArea"];
@@ -112,36 +116,62 @@ function RoomExpanded({ room, className }) {
 	const allowedGender = room["eligibilityInfo"]["allowedGender"];
 	const minimumAge = room["eligibilityInfo"]["minimumAge"];
 	return (
-		<RoomInfoCollection className={className}>
+		<RoomInfoCollection backgroundColor={"#faf0fbb1"} className={className}>
 			<div>
-				<RoomInfo>Residence Area: </RoomInfo> {residenceArea}
+				<KeyValues>
+					<RoomInfo>Residence Area: </RoomInfo>{" "}
+					<HighlightedValue>{residenceArea}</HighlightedValue>
+				</KeyValues>
 			</div>
 			<div>
-				<RoomInfo>Room: </RoomInfo> {roomType}
+				<KeyValues>
+					<RoomInfo>Room: </RoomInfo>{" "}
+					<HighlightedValue>{roomType}</HighlightedValue>
+				</KeyValues>
 			</div>
 			<div>
-				<RoomInfo>Washroom: </RoomInfo> {washroom}
+				<KeyValues>
+					<RoomInfo>Washroom: </RoomInfo>{" "}
+					<HighlightedValue>{washroom}</HighlightedValue>
+				</KeyValues>
 			</div>
 			<div>
-				<RoomInfo>Floor: </RoomInfo> {floor}
+				<KeyValues>
+					<RoomInfo>Floor: </RoomInfo>{" "}
+					<HighlightedValue>{floor}</HighlightedValue>
+				</KeyValues>
 			</div>
 			<div>
-				<RoomInfo>Building: </RoomInfo> {building}
+				<KeyValues>
+					<RoomInfo>Building: </RoomInfo>{" "}
+					<HighlightedValue>{building}</HighlightedValue>
+				</KeyValues>
 			</div>
 			<div>
-				<AdditionalRoomInfo>Residence Type: </AdditionalRoomInfo>{" "}
-				{residenceType}
+				<KeyValues>
+					<AdditionalRoomInfo>Residence Type: </AdditionalRoomInfo>{" "}
+					<HighlightedValue>{residenceType}</HighlightedValue>
+				</KeyValues>
 			</div>
 			<div>
-				<AdditionalRoomInfo>Session: </AdditionalRoomInfo> {session}
+				<KeyValues>
+					<AdditionalRoomInfo>Session: </AdditionalRoomInfo>{" "}
+					<HighlightedValue>{session}</HighlightedValue>
+				</KeyValues>
 			</div>
 			<div>
-				<AdditionalRoomInfo>Allowed Gender: </AdditionalRoomInfo>{" "}
-				{allowedGender}
+				<KeyValues>
+					<AdditionalRoomInfo>Allowed Gender: </AdditionalRoomInfo>{" "}
+					<HighlightedValue>{allowedGender}</HighlightedValue>
+				</KeyValues>
 			</div>
 			<div>
-				<AdditionalRoomInfo>Minimum Age: </AdditionalRoomInfo>{" "}
-				{minimumAge === 1 ? "No Minimum" : minimumAge}
+				<KeyValues>
+					<AdditionalRoomInfo>Minimum Age: </AdditionalRoomInfo>{" "}
+					<HighlightedValue>
+						{minimumAge === 1 ? "No Minimum" : minimumAge}
+					</HighlightedValue>
+				</KeyValues>
 			</div>
 		</RoomInfoCollection>
 	);
@@ -157,7 +187,7 @@ function RoomsExpanded({ rooms }) {
 		return (
 			<BoxedRoomsContainer>
 				{rooms.map((room) => {
-					return <BoxedRoomExpanded room={room} />;
+					return <RoomExpanded room={room} />;
 				})}
 			</BoxedRoomsContainer>
 		);

@@ -40,14 +40,10 @@ const getFilterOptions = () => {
 						"Shared Room",
 						"Connected Single Room",
 						"Single Traditional Room",
-						"Six Bedroom Suite",
-						"Four Bedroom Suite",
-						"Three Bedroom Suite",
 						"Two Bedroom Suite",
 						"One Bedroom Suite",
 						"Studio Suite",
 						"Nano Suite",
-						"Townhouse",
 					],
 					floor: {
 						spec: "Interval",
@@ -58,7 +54,7 @@ const getFilterOptions = () => {
 
 				eligibilityInfo: {
 					minimumAge: [1, 18, 19],
-					allowedGenders: ["Male", "Female", "Any"],
+					allowedGender: ["Male", "Female", "Any"],
 				},
 			},
 		},
@@ -146,27 +142,24 @@ const getOfferJSONSample = () => {
 				},
 				_id: "6283aa18a8792c8e94d22711",
 				generalInfo: {
-					residenceType: [
-						"First Year",
-						"Upper Year",
-						"Student Families",
-						"Graduate Colleges",
-					],
-					session: ["Year Round", "Winter Session", "Summer Session"],
+					residenceType: ["First Year", "Upper Year"],
+					session: ["Year Round"],
 					_id: "6283aa18a8792c8e94d22714",
 				},
 				eligibilityInfo: {
-					allowedGender: ["Male", "Female", "Any"],
+					allowedGender: ["Female", "Any"],
 					_id: "6283aa18a8792c8e94d22715",
 					minimumAge: {
 						spec: "Interval",
-						criteria: [1, 9007199254740991],
+						criteria: [1, 17],
 						_id: "6283aa18a8792c8e94d22716",
 					},
 				},
 			},
 		],
 		dateCreated: "2022-05-17T13:58:48.456Z",
+		user: { _id: "62877589252e1f138123225e", username: "Stankursters" },
+		additionalInformation: "contact me at my Instagram @whatever",
 		__v: 0,
 	};
 };
