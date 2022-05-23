@@ -95,7 +95,7 @@ function RoomsMininmized({ rooms }) {
 		return (
 			<BoxedRoomsContainer>
 				{rooms.map((room) => {
-					return <RoomMinimized room={room} />;
+					return <RoomMinimized key={room["_id"]} room={room} />;
 				})}
 			</BoxedRoomsContainer>
 		);

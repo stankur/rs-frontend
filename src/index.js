@@ -5,6 +5,8 @@ import App from "./App";
 import AllOffers from "./routes/AllOffers/AllOffers";
 import MyOffers from "./routes/MyOffers";
 
+import SignUp from "./routes/SignUp";
+
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import reportWebVitals from "./reportWebVitals";
@@ -18,6 +20,7 @@ root.render(
 					<Route path="" element={<Navigate to="/all-offers" />} />
 					<Route path="all-offers" element={<AllOffers />} />
 					<Route path="my-offers" element={<MyOffers />} />
+					<Route path="authentication/sign-up" element={<SignUp />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

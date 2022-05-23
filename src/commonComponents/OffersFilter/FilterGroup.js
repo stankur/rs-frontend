@@ -29,7 +29,7 @@ const PushedDiv = styled.div`
 	color: #414141;
 `;
 
-function FilterGroup({ groupName, filterJSON, notify, filterOptions }) {
+function FilterGroup({ groupName, filterJSON, notify, filterOptions, children }) {
 	const [isDetailsDisplayed, setIsDetailsDisplayed] = useState(false);
 
 	const changeIsDisplayed = () => {
@@ -157,6 +157,7 @@ function FilterGroup({ groupName, filterJSON, notify, filterOptions }) {
 						);
 					})}
 				</CustomizableDisplay>
+				{children}
 			</PushedDiv>
 		);
 	}

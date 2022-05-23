@@ -167,6 +167,7 @@ function PreferencesInformation({ preference, options }) {
 							<OnePreference
 								onePreference={preference}
 								options={options}
+								key={preference["_id"]}
 							/>
 						);
 					})}
