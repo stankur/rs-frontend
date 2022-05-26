@@ -49,7 +49,7 @@ function App() {
 				<span>
 					<NavBar to="/all-offers">All Offers</NavBar>{" "}
 					<NavBar to="/my-offers">My Offers</NavBar>{" "}
-					<NavBar to="/">New Offer</NavBar>
+					<NavBar to="/new-offer">New Offer</NavBar>
 				</span>
 				{userData !== undefined && (
 					<AuthenticationSection userData={userData} />

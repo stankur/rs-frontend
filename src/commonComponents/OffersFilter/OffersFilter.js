@@ -28,12 +28,14 @@ function OffersFilter() {
 
 	return (
 		<form>
-			<FilterGroup
-				groupName="filter"
-				filterJSON={filterJSON}
-				filterOptions={options}
-				notify={getNotified}
-			/>
+			<span>
+				<FilterGroup
+					groupName="filter"
+					filterJSON={filterJSON}
+					filterOptions={options}
+					notify={getNotified}
+				/>
+			</span>
 		</form>
 	);
 }

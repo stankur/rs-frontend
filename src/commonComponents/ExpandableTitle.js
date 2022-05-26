@@ -20,13 +20,13 @@ const GroupTitle = styled.span`
 	white-space: nowrap;
 	padding: 5px;
 	border-radius: 5px;
-    
 `;
 
 const ToggleDisplay = styled.span`
 	background-color: ${(props) => {
 		return props.toggleIconColor;
 	}};
+	cursor: pointer;
 	padding: 2px;
 	border-radius: 3px;
 `;

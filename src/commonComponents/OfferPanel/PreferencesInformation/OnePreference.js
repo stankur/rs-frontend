@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-import ContainerDiv from "./ContainerDiv";
-import HighlightedText from "./HighlightedText";
+import ContainerDiv from "../ContainerDiv";
+import HighlightedText from "../HighlightedText";
 
-import KeyValues from "./KeyValues";
+import KeyValues from "../KeyValues";
 
 const GreenHighlightedText = styled(HighlightedText).attrs(() => ({
 	backgroundColor: "#c3f9f999",
@@ -22,17 +22,12 @@ const HighlightedValue = styled(HighlightedText).attrs(() => ({
 `;
 
 const PreferenceContainer = styled(ContainerDiv)`
+    justify-content: center;
 	margin-top: 10px;
 	background-color: #e1fafa99;
 `;
 
-const BoxedPreferenceContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 7px;
-`;
-
-function OnePreference({ onePreference, options }) {
+function OnePreference({ onePreference, options, className }) {
 	const isAny = (criteria, possibilities) => {
 		return criteria.length === possibilities.length;
 	};
@@ -85,7 +80,7 @@ function OnePreference({ onePreference, options }) {
 	};
 
 	return (
-		<PreferenceContainer>
+		<PreferenceContainer className={className}>
 			{!isAny(onePreference["residenceArea"], options["residenceArea"]) &&
 				generateKeyValues(
 					"Residence Area",
@@ -147,34 +142,4 @@ function OnePreference({ onePreference, options }) {
 	);
 }
 
-function PreferencesInformation({ preference, options }) {
-	return (
-		<ContainerDiv>
-			<span>
-				<GreenHighlightedText>
-					{preference.length > 1 ? "Preferences" : "Preference"}
-				</GreenHighlightedText>
-			</span>
-			{preference.length === 1 ? (
-				<OnePreference
-					onePreference={preference[0]}
-					options={options}
-				/>
-			) : (
-				<BoxedPreferenceContainer>
-					{preference.map((preference) => {
-						return (
-							<OnePreference
-								onePreference={preference}
-								options={options}
-								key={preference["_id"]}
-							/>
-						);
-					})}
-				</BoxedPreferenceContainer>
-			)}
-		</ContainerDiv>
-	);
-}
-
-export default PreferencesInformation;
+export default OnePreference;

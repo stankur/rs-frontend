@@ -1,16 +1,21 @@
 import React from "react";
 
-function Comparator({ notify, comparator }) {
-    const notifyNewComparator = (event) => {
-        console.log("I tried to call the notify new comparator")
-		notify(event.target.value);
+import StyleableSmallSelect from "../../StyleableSmallSelect";
+
+function Comparator({ notify, comparator, backgroundColor }) {
+	const notifyNewComparator = (newOption) => {
+		console.log("I tried to call the notify new comparator");
+		notify(newOption.value);
 	};
+
+	const options = ["≤", "=", "≥"].map((value) => ({ value, label: value }));
 	return (
-		<select value={comparator} onChange={notifyNewComparator}>
-			<option value="≤">≤</option>
-			<option value="=">=</option>
-			<option value="≥">≥</option>
-		</select>
+		<StyleableSmallSelect
+			backgroundColor={backgroundColor}
+			value={{ value: comparator, label: comparator }}
+			onChange={notifyNewComparator}
+			options={options}
+		/>
 	);
 }
 

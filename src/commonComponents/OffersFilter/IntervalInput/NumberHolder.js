@@ -2,10 +2,18 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const SmallerInput = styled.input`
-	width: 25px;
+	padding: 11px;
+	outline: none !important;
+	border: 0 !important;
+	display: inline-block;
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+	background-color: ${(props) => props.backgroundColor};
+
+	flex-grow: 1;
 `;
 
-function NumberHolder({ notify, number }) {
+function NumberHolder({ notify, number, backgroundColor }) {
 	console.log("number received by NumberHolder: " + number);
 	const [display, setDisplay] = useState(number);
 	const notifyNewNumber = (event) => {
@@ -35,7 +43,12 @@ function NumberHolder({ notify, number }) {
 	console.log("display: " + display);
 
 	return (
-		<SmallerInput type="text" value={display} onChange={notifyNewNumber} />
+		<SmallerInput
+			backgroundColor={backgroundColor}
+			type="text"
+			value={display}
+			onChange={notifyNewNumber}
+		/>
 	);
 }
 

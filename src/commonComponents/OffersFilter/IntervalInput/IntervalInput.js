@@ -6,13 +6,24 @@ import NumberHolder from "./NumberHolder";
 
 import styled from "styled-components";
 
-const InputName = styled.div`
-	font-family: sans-serif;
-	margin-bottom: 5px;
-	margin-top: 10px;
+const Container = styled.div`
+	display: inline-flex;
+	flex-direction: column;
+	gap: 7px;
 `;
 
-function IntervalInput({ inputName, notify, interval }) {
+const InputTitle = styled.div`
+	font-family: sans-serif;
+	white-space: nowrap;
+	font-family: sans-serif;
+`;
+
+const InputFields = styled.span`
+	display: inline-flex;
+	gap: 7px;
+`;
+
+function IntervalInput({ inputName, notify, interval, comparatorBackgroundColor, numberHolderBackgroundColor }) {
 	console.log(
 		"IntervalInput asked to be created with interval of: " + interval
 	);
@@ -115,18 +126,21 @@ function IntervalInput({ inputName, notify, interval }) {
 
 	console.log("number given to NumberHolder: " + parseInterval().number);
 	return (
-		<div>
-			<InputName>{startCase(inputName)}</InputName>
-
-			<Comparator
-				notify={changeComparator}
-				comparator={parseInterval().comparator}
-			/>
-			<NumberHolder
-				notify={changeNumber}
-				number={parseInterval().number}
-			/>
-		</div>
+		<Container>
+			<InputTitle>{startCase(inputName) + ":"}</InputTitle>
+			<InputFields>
+				<Comparator
+					notify={changeComparator}
+					comparator={parseInterval().comparator}
+                    backgroundColor={comparatorBackgroundColor}
+				/>
+				<NumberHolder
+					notify={changeNumber}
+					number={parseInterval().number}
+                    backgroundColor={numberHolderBackgroundColor}
+				/>
+			</InputFields>
+		</Container>
 	);
 }
 

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import dayjs from "dayjs";
 
-import RoomsInformation from "./RoomsInformation";
-import PreferencesInformation from "./PreferencesInformation";
+import RoomsInformation from "./RoomsInformation/RoomsInformation";
+import PreferencesInformation from "./PreferencesInformation/PreferencesInformation";
 import AdditionalInformation from "./AdditionalInformation";
 
 import { getFilterOptions } from "../../mockData";
@@ -37,7 +37,7 @@ const PushedDiv = styled.div`
 	max-width: calc(50% - 30px);
 	min-width: 300px;
 
-	background-color: #a8a8a8a6;
+	background-color: #dfdfdf76;
 `;
 
 const QuantityInformation = styled.span`

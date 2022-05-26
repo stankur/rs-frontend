@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import AllOffers from "./routes/AllOffers/AllOffers";
 import MyOffers from "./routes/MyOffers";
+import NewOffer from "./routes/NewOffer/NewOffer";
 
 import SignUp from "./routes/SignUp";
 
@@ -20,6 +21,7 @@ root.render(
 					<Route path="" element={<Navigate to="/all-offers" />} />
 					<Route path="all-offers" element={<AllOffers />} />
 					<Route path="my-offers" element={<MyOffers />} />
+					<Route path="new-offer" element={<NewOffer />} />
 					<Route path="authentication/sign-up" element={<SignUp />} />
 				</Route>
 			</Routes>
