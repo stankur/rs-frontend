@@ -1,28 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import OffersFilter from "../../commonComponents/OffersFilter/OffersFilter";
 import OfferPanel from "../../commonComponents/OfferPanel/OfferPanel";
+import PanelsHolder from "../../commonComponents/PanelsHolder";
 
-import styled from "styled-components";
+import globalData from "../../globalData";
 
 import { getOfferJSONSample } from "../../mockData";
 
-const PanelsHolder = styled.div`
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
 
-	justify-content: space-evenly;
-`;
 function AllOffers() {
+	const [appliedFilter, setAppliedFilter] = useState([]);
+	const sendFilter = (filterJSON) => {
+		fetch(
+			globalData.API_URL +
+				"/api/offers?filter=" +
+				JSON.stringify(filterJSON)
+		)
+			.then((response) => response.json())
+			.then((response) => {
+				if (response["error"]) {
+					return console.log(response["error"]["message"]);
+				}
+				setAppliedFilter(filterJSON);
+				return setOffers(response);
+			})
+			.catch((err) => console.log(err));
+	};
+
+	const [offers, setOffers] = useState(undefined);
+
+	useEffect(() => {
+		if (offers === undefined) {
+			fetch(globalData.API_URL + "/api/offers")
+				.then((response) => response.json())
+				.then((response) => {
+					if (response["error"]) {
+						return console.log(response["error"]["message"]);
+					}
+
+					return setOffers(response);
+				})
+				.catch((err) => console.log(err));
+		}
+	});
+
 	return (
 		<div>
-			All Offers
-			<OffersFilter />
+			<OffersFilter sendFilter={sendFilter} />
 			<PanelsHolder>
-				<OfferPanel offerData={getOfferJSONSample()} />
-				<OfferPanel offerData={getOfferJSONSample()} />
-				<OfferPanel offerData={getOfferJSONSample()} />
-				<OfferPanel offerData={getOfferJSONSample()} />
+				{!!offers &&
+					offers.map((offerData) => (
+						<OfferPanel offerData={offerData} key={offerData._id} />
+					))}
 			</PanelsHolder>
 		</div>
 	);

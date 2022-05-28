@@ -35,7 +35,8 @@ const PushedDiv = styled.div`
 	border-radius: 5px;
 	box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 	max-width: calc(50% - 30px);
-	min-width: 300px;
+	min-width: 500px;
+	flex-grow: 1;
 
 	background-color: #dfdfdf76;
 `;
@@ -73,16 +74,18 @@ const Header = styled.div`
 	color: #454343;
 
 	display: flex;
+	gap: 7px;
 	justify-content: space-between;
 `;
 
 const ShadowedHighlightedText = styled(HighlightedText).attrs(() => ({
 	backgroundColor: "#ffffff",
 }))`
+	white-space: nowrap;
 	box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 `;
 
-function OfferPanel({ offerData }) {
+function OfferPanel({ offerData, className, children }) {
 	const offerId = offerData["_id"];
 
 	const numberOfPeople = offerData.numberOfPeople;
@@ -98,12 +101,13 @@ function OfferPanel({ offerData }) {
 	const additionalInformation = offerData["additionalInformation"];
 
 	return (
-		<PushedDiv>
+		<PushedDiv className={className}>
 			<Header>
 				<ShadowedHighlightedText>
 					{dayjs(dateCreated).format("ddd, D MMM YYYY")}
 				</ShadowedHighlightedText>
 				<ShadowedHighlightedText>{username}</ShadowedHighlightedText>
+				{children}
 			</Header>
 			<QuantityInformation>
 				<QuantifiedItem>

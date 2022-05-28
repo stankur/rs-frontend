@@ -6,6 +6,8 @@ import useIsLoggedIn from "./hooks/useIsLoggedIn";
 import styled from "styled-components";
 
 import ContainerDiv from "./commonComponents/OfferPanel/ContainerDiv";
+import Loader from "./commonComponents/LoadingLoader/Loader";
+import ShadowedHighlightedText from "./commonComponents/OfferPanel/ShadowedHighlightedText";
 
 const NavContainer = styled.nav`
 	display: flex;
@@ -17,17 +19,31 @@ const NavContainer = styled.nav`
 	margin-bottom: 7px;
 `;
 
+const ColoredNavLink = styled(NavLink).attrs(() => ({
+	style: ({ isActive }) => (isActive ? { fontWeight: "bold" } : {}),
+}))`
+	text-decoration: none;
+	color: black;
+`;
+
 function NavBar({ to, children }) {
 	return (
 		<ContainerDiv>
-			<NavLink to={to}>{children}</NavLink>
+			<ColoredNavLink to={to}>{children}</ColoredNavLink>
 		</ContainerDiv>
 	);
 }
 
 function AuthenticationSection({ userData }) {
 	if (userData) {
-		return <span>Welcome back {userData["user"]["username"]}!</span>;
+		return (
+			<span style={{fontFamily: "sans-serif"}}>
+				Welcome back{" "}
+				<ShadowedHighlightedText>
+					{userData["user"]["username"]}
+				</ShadowedHighlightedText>
+			</span>
+		);
 	}
 
 	return (
@@ -43,10 +59,22 @@ function App() {
 	const [userData, setAuthorizationHeader] = useIsLoggedIn();
 
 	return (
-		<div>
-			<h1>Room Switch</h1>
+		<div
+			style={{
+				display: "flex",
+				flexDirection: "column",
+				minHeight: "100vh",
+				padding: "0 7px",
+			}}
+		>
+			<div style={{ display: "inline-flex", gap: "25px", paddingLeft: "20px" }}>
+				<div style={{ display: "inline-block",position: "relative"}}>
+					<Loader size="30px" duration="5s" />
+				</div>
+				<h1 style={{ display:"inline-flex",fontFamily: "sans-serif"}}>Room Switch</h1>
+			</div>
 			<NavContainer>
-				<span>
+				<span style={{ display: "inline-flex", gap: "7px" }}>
 					<NavBar to="/all-offers">All Offers</NavBar>{" "}
 					<NavBar to="/my-offers">My Offers</NavBar>{" "}
 					<NavBar to="/new-offer">New Offer</NavBar>
@@ -55,9 +83,16 @@ function App() {
 					<AuthenticationSection userData={userData} />
 				)}
 			</NavContainer>
-			<Outlet context={[userData, setAuthorizationHeader]} />
-			<footer>
-				<ContainerDiv>by stankur</ContainerDiv>
+			<div style={{ flexGrow: 1, position: "relative" }}>
+				<Outlet context={[userData, setAuthorizationHeader]} />
+			</div>
+			<footer style={{ paddingBottom: "7px" }}>
+				<ContainerDiv
+					style={{ width: "100%", boxSizing: "border-box" }}
+				>
+					Please email terserahskurniawan@gmail.com for bug reports or
+					any feedback.
+				</ContainerDiv>
 			</footer>
 		</div>
 	);

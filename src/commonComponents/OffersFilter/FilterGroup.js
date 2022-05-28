@@ -6,6 +6,8 @@ import ExpandableTitle from "../ExpandableTitle";
 
 import { cloneDeep } from "lodash";
 import styled from "styled-components";
+import HighlightedText from "../OfferPanel/HighlightedText";
+import ShadowedHighlightedText from "../OfferPanel/ShadowedHighlightedText";
 
 const CustomizableDisplay = styled.div`
 	display: ${(props) => {
@@ -48,6 +50,8 @@ function FilterGroup({
 	notify,
 	filterOptions,
 	children,
+	main,
+	handleApply,
 }) {
 	const [isDetailsDisplayed, setIsDetailsDisplayed] = useState(false);
 
@@ -110,13 +114,31 @@ function FilterGroup({
 
 		return (
 			<PushedDiv>
-				<ExpandableTitle
-					isDetailsDisplayed={isDetailsDisplayed}
-					changeIsDisplayed={changeIsDisplayed}
-					groupName={groupName}
-					backgroundColor={"#f5f1d3e6"}
-					toggleIconColor={"#f2e89eda"}
-				/>
+				<span
+					style={{
+						display: "inline-flex",
+						width: "100%",
+						justifyContent: "space-between",
+					}}
+				>
+					<ExpandableTitle
+						isDetailsDisplayed={isDetailsDisplayed}
+						changeIsDisplayed={changeIsDisplayed}
+						groupName={groupName}
+						backgroundColor={"#f5f1d3e6"}
+						toggleIconColor={"#f2e89eda"}
+					/>
+					{!!main && (
+						<span onClick={() => handleApply()}>
+							<ShadowedHighlightedText
+								style={{ fontFamily: "sans-serif" }}
+								backgroundColor={"#f5f1d3e6"}
+							>
+								Apply
+							</ShadowedHighlightedText>
+						</span>
+					)}
+				</span>
 				<CustomizableDisplay isDetailsDisplayed={isDetailsDisplayed}>
 					{Object.keys(filterJSON).filter((subGroupName) => {
 						const subGroup = filterJSON[subGroupName];

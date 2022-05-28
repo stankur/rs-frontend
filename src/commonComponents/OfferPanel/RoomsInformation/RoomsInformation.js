@@ -110,7 +110,7 @@ function RoomsExpanded({ rooms }) {
 		return (
 			<BoxedRoomsContainer>
 				{rooms.map((room) => {
-					return <RoomExpanded room={room} />;
+					return <RoomExpanded key={room._id} room={room} />;
 				})}
 			</BoxedRoomsContainer>
 		);

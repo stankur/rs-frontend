@@ -4,7 +4,7 @@ import { cloneDeep } from "lodash";
 
 import { getFilterOptions } from "../../mockData";
 
-function OffersFilter() {
+function OffersFilter({ sendFilter }) {
 	const options = getFilterOptions();
 	const [filterJSON, setfilterJSON] = useState(options);
 
@@ -26,6 +26,8 @@ function OffersFilter() {
 		setfilterJSON(updatedFilter);
 	};
 
+    const handleApply = () => sendFilter(filterJSON)
+
 	return (
 		<form>
 			<span>
@@ -34,6 +36,8 @@ function OffersFilter() {
 					filterJSON={filterJSON}
 					filterOptions={options}
 					notify={getNotified}
+					main={true}
+					handleApply={handleApply}
 				/>
 			</span>
 		</form>

@@ -76,7 +76,7 @@ function RoomForm({ notify }) {
 
 	const [floor, setFloor] = useState(1);
 
-	const washroomOptions = ["Communal", "private"].map((value) => ({
+	const washroomOptions = ["Communal", "Private"].map((value) => ({
 		value,
 		label: value,
 	}));
@@ -214,6 +214,7 @@ function RoomForm({ notify }) {
 				options={allowedGenderOptions}
 			/>
 			<button
+            type="button"
 				onClick={() =>
 					notify({ room: constructRoom(), date: Date.now() })
 				}

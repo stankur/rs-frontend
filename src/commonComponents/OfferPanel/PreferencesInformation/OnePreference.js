@@ -22,7 +22,7 @@ const HighlightedValue = styled(HighlightedText).attrs(() => ({
 `;
 
 const PreferenceContainer = styled(ContainerDiv)`
-    justify-content: center;
+	justify-content: center;
 	margin-top: 10px;
 	background-color: #e1fafa99;
 `;
@@ -69,7 +69,7 @@ function OnePreference({ onePreference, options, className }) {
 				</ShadowedGreenHighlightedText>
 				{values.map((value) => {
 					return (
-						<span>
+						<span key={value}>
 							{" "}
 							<HighlightedValue>{value}</HighlightedValue>
 						</span>

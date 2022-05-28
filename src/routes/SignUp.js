@@ -3,8 +3,10 @@ import { useOutletContext } from "react-router-dom";
 
 import golbalData from "../globalData";
 
-import styled from "styled-components";
 import ContainerDiv from "../commonComponents/OfferPanel/ContainerDiv";
+import Loader from "../commonComponents/LoadingLoader/Loader";
+
+import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const ColoredInput = styled.input`
@@ -40,7 +42,7 @@ function SignUp() {
 	const [submitError, setSubmitError] = useState(false);
 
 	if (userData === undefined) {
-		return;
+		return <Loader />;
 	}
 
 	if (userData) {

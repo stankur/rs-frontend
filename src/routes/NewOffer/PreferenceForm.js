@@ -33,7 +33,6 @@ const InputFields = styled.span`
 `;
 
 function PreferenceForm({ notify }) {
-
 	const allRoomOptions = getFilterOptions().rooms.criteria;
 
 	const residenceAreaOptions = allRoomOptions.residenceArea;
@@ -172,6 +171,7 @@ function PreferenceForm({ notify }) {
 				selectedLabelBackgroundColor="#edd2f3e6"
 			/>
 			<button
+				type="button"
 				onClick={() => {
 					notify({
 						preference: constructPreference(),
