@@ -67,11 +67,25 @@ function App() {
 				padding: "0 7px",
 			}}
 		>
-			<div style={{ display: "inline-flex", gap: "25px", paddingLeft: "20px" }}>
-				<div style={{ display: "inline-block",position: "relative"}}>
-					<Loader size="30px" duration="5s" />
+			<div
+				style={{
+					display: "inline-flex",
+					gap: "25px",
+					paddingLeft: "20px",
+				}}
+			>
+				<div style={{ display: "inline-block", position: "relative" }}>
+					<Loader
+						size="30px"
+						duration="5s"
+						src="/transparentSwitchLogo.png"
+					/>
 				</div>
-				<h1 style={{ display:"inline-flex",fontFamily: "sans-serif"}}>Room Switch</h1>
+				<h1
+					style={{ display: "inline-flex", fontFamily: "sans-serif" }}
+				>
+					Room Switch
+				</h1>
 			</div>
 			<NavContainer>
 				<span style={{ display: "inline-flex", gap: "7px" }}>
@@ -83,15 +97,22 @@ function App() {
 					<AuthenticationSection userData={userData} />
 				)}
 			</NavContainer>
-			<div style={{ flexGrow: 1, position: "relative" }}>
+			<div
+				style={{
+					flexGrow: 1,
+					display: "flex",
+					flexDirection: "column",
+					position: "relative",
+				}}
+			>
 				<Outlet context={[userData, setAuthorizationHeader]} />
 			</div>
 			<footer style={{ paddingBottom: "7px" }}>
 				<ContainerDiv
 					style={{ width: "100%", boxSizing: "border-box" }}
 				>
-					Please email terserahskurniawan@gmail.com for bug reports or
-					any feedback.
+					Please email beckkrot@gmail.com for bug reports or any
+					feedback.
 				</ContainerDiv>
 			</footer>
 		</div>

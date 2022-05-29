@@ -1,17 +1,6 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 
-const SmallerInput = styled.input`
-	padding: 11px;
-	outline: none !important;
-	border: 0 !important;
-	display: inline-block;
-	box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-	border-radius: 5px;
-	background-color: ${(props) => props.backgroundColor};
-
-	flex-grow: 1;
-`;
+import SmallerInput from "./SmallerInput";
 
 function NumberHolder({ notify, number, backgroundColor }) {
 	console.log("number received by NumberHolder: " + number);

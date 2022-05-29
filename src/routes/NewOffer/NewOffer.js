@@ -9,13 +9,16 @@ import ContainerDiv from "../../commonComponents/OfferPanel/ContainerDiv";
 import HighlightedText from "../../commonComponents/OfferPanel/HighlightedText";
 
 import { getFilterOptions } from "../../mockData";
+import dayjs from "dayjs";
 
 import globalData from "../../globalData";
 
+import useLastUpdatedOfferTime from "../../hooks/useLastAddedOfferTime";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
 import styled from "styled-components";
-import dayjs from "dayjs";
+import Loader from "../../commonComponents/LoadingLoader/Loader";
+import ShadowedHighlightedText from "../../commonComponents/OfferPanel/ShadowedHighlightedText";
 
 const PageContainer = styled(ContainerDiv)`
 	display: inline-flex;
@@ -153,6 +156,8 @@ function NewOffer() {
 	const [signedPreference, setSignedPreference] = useState([]);
 	const [additionalInformation, setAdditionalInformation] = useState("");
 
+	const [lastUpdatedOfferTime, renew] = useLastUpdatedOfferTime();
+
 	const roomsWantedOptions = getRoomsWantedOptions(numberOfPeople);
 
 	useEffect(() => {
@@ -168,11 +173,34 @@ function NewOffer() {
 	}, [numberOfPeople, roomsWanted]);
 
 	if (userData === undefined) {
-		return;
+		return <Loader />;
 	}
 
 	if (!userData) {
-		return <div>You must be logged in to be able to add a new offer!</div>;
+		return (
+			<ContainerDiv>
+				You must be logged in to be able to add a new offer!
+			</ContainerDiv>
+		);
+	}
+	if (lastUpdatedOfferTime === undefined) {
+		return <Loader />;
+	}
+
+	if (dayjs(lastUpdatedOfferTime).add(1, "hour").isAfter(dayjs())) {
+		return (
+			<div style={{ fontFamily: "sans-serif" }}>
+				Sorry, you must wait until{" "}
+				<ShadowedHighlightedText>
+					{dayjs(lastUpdatedOfferTime)
+						.add(1, "hour")
+						.format("ddd, D MMM YYYY HH:mm")}
+				</ShadowedHighlightedText>
+				. The reason new offer creation is limited is because the
+				requests could made in this app is limited by the hosting
+				service provider.
+			</div>
+		);
 	}
 
 	const removeRoom = (identifier) => {
@@ -233,6 +261,7 @@ function NewOffer() {
 					return console.log(response["error"]["message"]);
 				}
 
+				renew();
 				return navigate("/my-offers");
 			})
 			.catch((err) => {

@@ -9,6 +9,7 @@ import Loader from "../commonComponents/LoadingLoader/Loader";
 import globalData from "../globalData";
 
 import styled from "styled-components";
+import ContainerDiv from "../commonComponents/OfferPanel/ContainerDiv";
 
 const ExpandableSpan = styled.span`
 	display: inline-flex;
@@ -42,24 +43,6 @@ function MyOffers() {
 	const [offers, setOffers] = useState(undefined);
 	const [toBeRemoved, setToBeRemoved] = useState(null);
 
-	useEffect(() => {
-		if (!!userData) {
-			fetch(
-				globalData.API_URL +
-					"/api/users/" +
-					userData.user._id +
-					"/offers"
-			)
-				.then((response) => response.json())
-				.then((response) => {
-					if (response["error"]) {
-						return console.log(response["error"]["message"]);
-					}
-
-					return setOffers(response);
-				});
-		}
-	}, [userData, toBeRemoved]);
 
 	useEffect(() => {
 		if (toBeRemoved) {
@@ -86,13 +69,40 @@ function MyOffers() {
 		}
 	}, [toBeRemoved]);
 
+    	useEffect(() => {
+			if (!!userData) {
+				fetch(
+					globalData.API_URL +
+						"/api/users/" +
+						userData.user._id +
+						"/offers"
+				)
+					.then((response) => response.json())
+					.then((response) => {
+						if (response["error"]) {
+							return console.log(response["error"]["message"]);
+						}
+
+						return setOffers(response);
+					});
+			}
+		}, [userData, toBeRemoved]);
+
 	const navigate = useNavigate();
 	if (userData === undefined) {
 		return <Loader />;
 	}
 
 	if (!userData) {
-		return <div>You must be logged in to view your offers!</div>;
+		return (
+			<ContainerDiv >
+				You must be logged in to view your offers!
+			</ContainerDiv>
+		);
+	}
+
+	if (offers === undefined) {
+		return <Loader />;
 	}
 
 	return (
@@ -113,7 +123,10 @@ function MyOffers() {
 								Find Matches
 							</FindMatchesButton>
 							<DeleteButton
-								onClick={() => setToBeRemoved(offer._id)}
+								onClick={() => {
+									setToBeRemoved(offer._id);
+									setOffers(undefined);
+								}}
 							>
 								Delete
 							</DeleteButton>

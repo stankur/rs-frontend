@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import OffersFilter from "../../commonComponents/OffersFilter/OffersFilter";
 import OfferPanel from "../../commonComponents/OfferPanel/OfferPanel";
 import PanelsHolder from "../../commonComponents/PanelsHolder";
+import Loader from "../../commonComponents/LoadingLoader/Loader";
 
 import globalData from "../../globalData";
 
 import { getOfferJSONSample } from "../../mockData";
-
 
 function AllOffers() {
 	const [appliedFilter, setAppliedFilter] = useState([]);
@@ -45,14 +45,19 @@ function AllOffers() {
 	});
 
 	return (
-		<div>
+		<div style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
 			<OffersFilter sendFilter={sendFilter} />
-			<PanelsHolder>
-				{!!offers &&
-					offers.map((offerData) => (
+			{offers ? (
+				<PanelsHolder>
+					{offers.map((offerData) => (
 						<OfferPanel offerData={offerData} key={offerData._id} />
 					))}
-			</PanelsHolder>
+				</PanelsHolder>
+			) : (
+				<div style={{ position: "relative", flexGrow: 1 }}>
+					<Loader />
+				</div>
+			)}
 		</div>
 	);
 }

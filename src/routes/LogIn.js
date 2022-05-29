@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
+import CenteredDiv from "../commonComponents/CenteredDiv";
+import ContainerDiv from "../commonComponents/OfferPanel/ContainerDiv";
+import SmallerInput from "../commonComponents/OffersFilter/IntervalInput/SmallerInput";
 
 import globalData from "../globalData";
 
@@ -58,18 +61,26 @@ function LogIn() {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			{submitError && <div>{submitError}</div>}
-			<input
-				type="text"
-				value={username}
-				onChange={handleUsernameChange}
-			/>
-			<input
-				type="password"
-				value={password}
-				onChange={handlePasswordChange}
-			/>
-			<button type="submit">Log In</button>
+			<CenteredDiv
+				style={{ display: "inline-block", fontFamily: "sans-serif" }}
+			>
+				<ContainerDiv>
+					{submitError && <div>{submitError}</div>}
+					<span>Username</span>
+
+					<SmallerInput
+						value={username}
+						onChange={handleUsernameChange}
+					/>
+					<span>Password</span>
+
+					<SmallerInput
+						value={password}
+						onChange={handlePasswordChange}
+					/>
+					<button type="submit">Log In</button>
+				</ContainerDiv>
+			</CenteredDiv>
 		</form>
 	);
 }

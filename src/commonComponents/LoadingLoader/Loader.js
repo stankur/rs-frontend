@@ -1,6 +1,7 @@
 import React from "react";
 
-import styled, {keyframes} from "styled-components";
+import styled, { keyframes } from "styled-components";
+import CenteredDiv from "../CenteredDiv";
 
 const rotate = keyframes`
   from {
@@ -21,23 +22,16 @@ const RotatingImage = styled.img`
 	}};
 `;
 
-const Centered = styled.div`
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-`;
-
-function Loader({ size, duration }) {
+function Loader({ size, duration, src }) {
 	return (
-		<Centered>
+		<CenteredDiv>
 			<RotatingImage
-				src="/transparentSwitchLogo.png"
+				src={src ? src : "/transparentGray.png"}
 				width={size ? size : "200px"}
 				alt="lol"
-                duration={duration}
+				duration={duration}
 			/>
-		</Centered>
+		</CenteredDiv>
 	);
 }
 

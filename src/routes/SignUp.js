@@ -5,19 +5,22 @@ import golbalData from "../globalData";
 
 import ContainerDiv from "../commonComponents/OfferPanel/ContainerDiv";
 import Loader from "../commonComponents/LoadingLoader/Loader";
+import SmallerInput from "../commonComponents/OffersFilter/IntervalInput/SmallerInput";
 
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import ShadowedHighlightedText from "../commonComponents/OfferPanel/ShadowedHighlightedText";
+import CenteredDiv from "../commonComponents/CenteredDiv";
 
-const ColoredInput = styled.input`
-	display: block;
+const ColoredInput = styled(SmallerInput)`
+	border-width: 1px;
 	border-style: solid;
 	border-color: ${(props) => {
 		if (props.error) {
-			return "red";
+			return "#f98080";
 		}
 
-		return "green";
+		return "#68fee0";
 	}};
 	&:focus {
 		outline: none !important;
@@ -132,34 +135,61 @@ function SignUp() {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			{submitError !== false && (
-				<div>
-					<SubmitError>{submitError}</SubmitError>
-				</div>
-			)}
-			<label htmlFor="username">Username</label>
-			<ColoredInput
-				error={usernameError}
-				type="text"
-				id="username"
-				name="username"
-				value={username}
-				onChange={handleUsernameChange}
-			/>
-			{usernameError && <div>Must have length of at least 1</div>}
-			<label htmlFor="password">Password</label>
-			<ColoredInput
-				error={passwordError}
-				type="password"
-				id="password"
-				name="password"
-				value={password}
-				onChange={handlePasswordChange}
-			/>
-			{passwordError && <div>Must have length of at least 8</div>}
-			<input type="submit" />
-		</form>
+		<CenteredDiv
+			style={{ display: "inline-block", fontFamily: "sans-serif" }}
+		>
+			<ContainerDiv>
+				<form
+					style={{
+						display: "inline-flex",
+						gap: "10px",
+						flexDirection: "column",
+					}}
+					onSubmit={handleSubmit}
+				>
+					{submitError !== false && (
+						<div>
+							<SubmitError>{submitError}</SubmitError>
+						</div>
+					)}
+					<label htmlFor="username">Username</label>
+					<ColoredInput
+						error={usernameError}
+						type="text"
+						id="username"
+						name="username"
+						value={username}
+						onChange={handleUsernameChange}
+					/>
+					{usernameError && (
+						<ShadowedHighlightedText
+							style={{ fontWeight: "lighter" }}
+						>
+							Must have length of at least 1
+						</ShadowedHighlightedText>
+					)}
+					<label htmlFor="password">Password</label>
+					<ColoredInput
+						error={passwordError}
+						type="password"
+						id="password"
+						name="password"
+						value={password}
+						onChange={handlePasswordChange}
+					/>
+
+					{passwordError && (
+						<ShadowedHighlightedText
+							style={{ fontWeight: "lighter" }}
+						>
+							Must have length of at least 8
+						</ShadowedHighlightedText>
+					)}
+
+					<input type="submit" />
+				</form>
+			</ContainerDiv>
+		</CenteredDiv>
 	);
 }
 

@@ -9,6 +9,7 @@ import Loader from "../commonComponents/LoadingLoader/Loader";
 import globalData from "../globalData";
 
 import styled from "styled-components";
+import ContainerDiv from "../commonComponents/OfferPanel/ContainerDiv";
 
 const Title = styled(ShadowedHighlightedText)`
 	display: inline-flex;
@@ -74,7 +75,9 @@ function Matches() {
 				{!!matches && (
 					<PanelsHolder>
 						{matches.length === 0 ? (
-							<div>No match yet :( Try to check again later!</div>
+							<ContainerDiv style={{marginTop:"10px", marginBottom:"10px"}}>
+								No match yet :( Try to check again later!
+							</ContainerDiv>
 						) : (
 							matches.map((offerData) => (
 								<OfferPanel
