@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import dayjs from "dayjs";
 
+
 import RoomsInformation from "./RoomsInformation/RoomsInformation";
 import PreferencesInformation from "./PreferencesInformation/PreferencesInformation";
 import AdditionalInformation from "./AdditionalInformation";
@@ -13,7 +14,7 @@ const QuantifiedItem = styled.span`
 	font-family: sans-serif;
 	font-weight: bold;
 	color: #4cbcecb2;
-	font-size: 1.4em;
+	font-size: 1.1em;
 
 	box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 
@@ -34,16 +35,18 @@ const PushedDiv = styled.div`
 	padding: 7px;
 	border-radius: 5px;
 	box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-	max-width: calc(50% - 30px);
-	min-width: 500px;
-	flex-grow: 1;
+	width: max(calc(50% - 30px), 550px);
+
+	@media (max-width: 500px) {
+		width: 100%;
+	}
 
 	background-color: #dfdfdf76;
 `;
 
 const QuantityInformation = styled.span`
 	display: inline-flex;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	align-items: center;
 	justify-content: center;
 
@@ -76,6 +79,10 @@ const Header = styled.div`
 	display: flex;
 	gap: 7px;
 	justify-content: space-between;
+
+	@media (max-width: 540px) {
+		flex-wrap: wrap;
+	}
 `;
 
 const ShadowedHighlightedText = styled(HighlightedText).attrs(() => ({
@@ -119,7 +126,8 @@ function OfferPanel({ offerData, className, children }) {
 					{numbeOfRoomsAvailable}{" "}
 					<span>{numbeOfRoomsAvailable > 1 ? "rooms" : "room"}</span>
 				</QuantifiedItem>
-				<span>looking</span> <span>for</span>
+				<span>looking</span>
+				<span>for</span>
 				<QuantifiedItem>
 					{roomsWanted}{" "}
 					<span>{roomsWanted > 1 ? "rooms" : "room"}</span>

@@ -20,6 +20,10 @@ const CustomizableDisplay = styled.div`
 	flex-wrap: wrap;
 	padding-top: 12px;
 	gap: 13px;
+
+	@media (max-width: 500px) {
+		flex-direction: column;
+	}
 `;
 
 const Displays = styled.span`
@@ -31,10 +35,15 @@ const ColumnDisplays = styled(Displays)`
 	flex-direction: column;
 `;
 
-const RowDisplays = styled(Displays)`
-	flex-direction: row;
+const GroupedFiltersDisplay = styled(Displays)`
+	@media (max-width: 500px) {
+		flex-direction: column;
+	}
 `;
 
+const ClickableSpan = styled.span`
+	cursor: pointer;
+`;
 const PushedDiv = styled.div`
 	padding: 12px 7px 7px 7px;
 
@@ -129,14 +138,14 @@ function FilterGroup({
 						toggleIconColor={"#f2e89eda"}
 					/>
 					{!!main && (
-						<span onClick={() => handleApply()}>
+						<ClickableSpan onClick={() => handleApply()}>
 							<ShadowedHighlightedText
 								style={{ fontFamily: "sans-serif" }}
 								backgroundColor={"#f5f1d3e6"}
 							>
 								Apply
 							</ShadowedHighlightedText>
-						</span>
+						</ClickableSpan>
 					)}
 				</span>
 				<CustomizableDisplay isDetailsDisplayed={isDetailsDisplayed}>
@@ -205,7 +214,7 @@ function FilterGroup({
 								subGroup instanceof Object)
 						);
 					}).length > 0 && (
-						<Displays>
+						<GroupedFiltersDisplay>
 							{Object.keys(filterJSON).map((subGroupName) => {
 								const subGroup = filterJSON[subGroupName];
 								const subGroupOptions =
@@ -251,7 +260,7 @@ function FilterGroup({
 										" is of invalid format!"
 								);
 							})}
-						</Displays>
+						</GroupedFiltersDisplay>
 					)}
 				</CustomizableDisplay>
 				{children}

@@ -28,7 +28,7 @@ function Loader({ size, duration, src }) {
 			<RotatingImage
 				src={src ? src : "/transparentGray.png"}
 				width={size ? size : "200px"}
-				alt="lol"
+				alt="Room Switch"
 				duration={duration}
 			/>
 		</CenteredDiv>

@@ -5,6 +5,7 @@ import ContainerDiv from "../ContainerDiv";
 import HighlightedText from "../HighlightedText";
 import OnePreference from "./OnePreference";
 
+
 const GreenHighlightedText = styled(HighlightedText).attrs(() => ({
 	backgroundColor: "#c3f9f999",
 }))``;

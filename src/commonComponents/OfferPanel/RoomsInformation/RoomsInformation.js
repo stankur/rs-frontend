@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import ContainerDiv from "../ContainerDiv";
 import HighlightedText from "../HighlightedText";
-import RoomExpanded from "./RoomExpanded"
+import RoomExpanded from "./RoomExpanded";
 
 import KeyValues from "../KeyValues";
 
@@ -98,7 +98,6 @@ function RoomsMininmized({ rooms }) {
 		);
 	}
 }
-
 
 function RoomsExpanded({ rooms }) {
 	const length = rooms.length;

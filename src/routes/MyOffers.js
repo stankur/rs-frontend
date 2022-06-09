@@ -10,12 +10,17 @@ import globalData from "../globalData";
 
 import styled from "styled-components";
 import ContainerDiv from "../commonComponents/OfferPanel/ContainerDiv";
+import ErrorNotification from "../commonComponents/Notification/ErrorNotification";
 
 const ExpandableSpan = styled.span`
 	display: inline-flex;
 	width: 100%;
 	gap: 7px;
 	justify-content: flex-end;
+
+    @media (max-width: 540px) {
+        justify-content: center;
+    }
 	align-items: center;
 `;
 
@@ -37,12 +42,20 @@ const FindMatchesButton = styled(HighlightedText).attrs(() => ({
 	}
 `;
 
+const BumpButton = styled(HighlightedText).attrs(() => ({
+	backgroundColor: "#b1fac8ff",
+}))`
+	border: 1px solid #7ff0a3ff;
+	&:hover {
+		background-color: #85feabff;
+	}
+`;
+
 function MyOffers() {
 	const [userData, setAuthorizationHeader] = useOutletContext();
 
 	const [offers, setOffers] = useState(undefined);
 	const [toBeRemoved, setToBeRemoved] = useState(null);
-
 
 	useEffect(() => {
 		if (toBeRemoved) {
@@ -69,24 +82,24 @@ function MyOffers() {
 		}
 	}, [toBeRemoved]);
 
-    	useEffect(() => {
-			if (!!userData) {
-				fetch(
-					globalData.API_URL +
-						"/api/users/" +
-						userData.user._id +
-						"/offers"
-				)
-					.then((response) => response.json())
-					.then((response) => {
-						if (response["error"]) {
-							return console.log(response["error"]["message"]);
-						}
+	useEffect(() => {
+		if (!!userData) {
+			fetch(
+				globalData.API_URL +
+					"/api/users/" +
+					userData.user._id +
+					"/offers"
+			)
+				.then((response) => response.json())
+				.then((response) => {
+					if (response["error"]) {
+						return console.log(response["error"]["message"]);
+					}
 
-						return setOffers(response);
-					});
-			}
-		}, [userData, toBeRemoved]);
+					return setOffers(response);
+				});
+		}
+	}, [userData, toBeRemoved]);
 
 	const navigate = useNavigate();
 	if (userData === undefined) {
@@ -95,9 +108,9 @@ function MyOffers() {
 
 	if (!userData) {
 		return (
-			<ContainerDiv >
+			<ErrorNotification>
 				You must be logged in to view your offers!
-			</ContainerDiv>
+			</ErrorNotification>
 		);
 	}
 
@@ -111,6 +124,7 @@ function MyOffers() {
 				offers.map((offer) => (
 					<OfferPanel offerData={offer} key={offer._id}>
 						<ExpandableSpan>
+							<BumpButton>Bring Up</BumpButton>
 							<FindMatchesButton
 								onClick={() =>
 									navigate("/matches", {

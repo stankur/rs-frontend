@@ -75,6 +75,7 @@ function LogIn() {
 					<span>Password</span>
 
 					<SmallerInput
+						type="password"
 						value={password}
 						onChange={handlePasswordChange}
 					/>
