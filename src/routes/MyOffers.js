@@ -9,7 +9,6 @@ import Loader from "../commonComponents/LoadingLoader/Loader";
 import globalData from "../globalData";
 
 import styled from "styled-components";
-import ContainerDiv from "../commonComponents/OfferPanel/ContainerDiv";
 import ErrorNotification from "../commonComponents/Notification/ErrorNotification";
 
 const ExpandableSpan = styled.span`
@@ -18,13 +17,17 @@ const ExpandableSpan = styled.span`
 	gap: 7px;
 	justify-content: flex-end;
 
-    @media (max-width: 540px) {
-        justify-content: center;
-    }
+	@media (max-width: 540px) {
+		justify-content: center;
+	}
 	align-items: center;
 `;
 
-const DeleteButton = styled(HighlightedText).attrs(() => ({
+const ClickableButton = styled(HighlightedText)`
+	cursor: pointer;
+`;
+
+const DeleteButton = styled(ClickableButton).attrs(() => ({
 	backgroundColor: "#fdb3b3ff",
 }))`
 	border: 1px solid #f96c6cff;
@@ -33,7 +36,7 @@ const DeleteButton = styled(HighlightedText).attrs(() => ({
 	}
 `;
 
-const FindMatchesButton = styled(HighlightedText).attrs(() => ({
+const FindMatchesButton = styled(ClickableButton).attrs(() => ({
 	backgroundColor: "#a6d2fcff",
 }))`
 	border: 1px solid #6cb5f9ff;
@@ -42,12 +45,12 @@ const FindMatchesButton = styled(HighlightedText).attrs(() => ({
 	}
 `;
 
-const BumpButton = styled(HighlightedText).attrs(() => ({
+const BumpButton = styled(ClickableButton).attrs(() => ({
 	backgroundColor: "#b1fac8ff",
 }))`
 	border: 1px solid #7ff0a3ff;
 	&:hover {
-		background-color: #85feabff;
+		background-color: #98f9b7ff;
 	}
 `;
 
@@ -56,6 +59,7 @@ function MyOffers() {
 
 	const [offers, setOffers] = useState(undefined);
 	const [toBeRemoved, setToBeRemoved] = useState(null);
+	const [toBeBumped, setToBeBumped] = useState(null);
 
 	useEffect(() => {
 		if (toBeRemoved) {
@@ -80,7 +84,32 @@ function MyOffers() {
 				})
 				.catch((err) => console.log(Object.keys(err)));
 		}
-	}, [toBeRemoved]);
+	});
+
+	useEffect(() => {
+		if (toBeBumped) {
+			fetch(globalData.API_URL + "/api/offers/" + toBeBumped + "/date", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: localStorage.getItem("Authorization"),
+				},
+			})
+				.then((response) => response.json())
+				.then((response) => {
+					if (response["error"]) {
+						console.log("the id: " + toBeRemoved);
+						console.log(
+							"the error: " + response["error"]["message"]
+						);
+						return console.log("failed to bump retrying");
+					}
+
+					return setToBeBumped(null);
+				})
+				.catch((err) => console.log(Object.keys(err)));
+		}
+	});
 
 	useEffect(() => {
 		if (!!userData) {
@@ -124,7 +153,13 @@ function MyOffers() {
 				offers.map((offer) => (
 					<OfferPanel offerData={offer} key={offer._id}>
 						<ExpandableSpan>
-							<BumpButton>Bring Up</BumpButton>
+							<BumpButton
+								onClick={() => {
+									setToBeBumped(offer._id);
+								}}
+							>
+								Bring Up
+							</BumpButton>
 							<FindMatchesButton
 								onClick={() =>
 									navigate("/matches", {
