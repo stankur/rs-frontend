@@ -128,7 +128,8 @@ function App() {
 				>
 					<NavBar to="/all-offers">All Offers</NavBar>{" "}
 					<NavBar to="/my-offers">My Offers</NavBar>{" "}
-					<NavBar to="/new-offer">New Offer</NavBar>
+					<NavBar to="/new-offer">New Offer</NavBar>{" "}
+					<NavBar to="/offer-butler">Offer Butler</NavBar>
 				</span>
 			</NavContainer>
 			<div
@@ -145,7 +146,7 @@ function App() {
 				<FooterBar
 					style={{
 						display: "flex",
-                        gap: "20px",
+						gap: "20px",
 						alignItems: "center",
 						justifyContent: "center",
 						backgroundColor: "#d1d0d0ce",
@@ -166,7 +167,9 @@ function App() {
 							src="/transparentSwitchLogo.png"
 						/>
 					</div>
-					<RoomSwitchTitle style={{flexGrow: 0}}>Room Switch</RoomSwitchTitle>
+					<RoomSwitchTitle style={{ flexGrow: 0 }}>
+						Room Switch
+					</RoomSwitchTitle>
 				</FooterBar>
 				<FooterBar
 					style={{

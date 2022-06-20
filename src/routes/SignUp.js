@@ -5,27 +5,12 @@ import golbalData from "../globalData";
 
 import ContainerDiv from "../commonComponents/OfferPanel/ContainerDiv";
 import Loader from "../commonComponents/LoadingLoader/Loader";
-import SmallerInput from "../commonComponents/OffersFilter/IntervalInput/SmallerInput";
+import ColoredInput from "../commonComponents/ColoredInput";
 
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import ShadowedHighlightedText from "../commonComponents/OfferPanel/ShadowedHighlightedText";
 import CenteredDiv from "../commonComponents/CenteredDiv";
-
-const ColoredInput = styled(SmallerInput)`
-	border-width: 1px;
-	border-style: solid;
-	border-color: ${(props) => {
-		if (props.error) {
-			return "#f98080";
-		}
-
-		return "#68fee0";
-	}};
-	&:focus {
-		outline: none !important;
-	}
-`;
 
 const SubmitError = styled(ContainerDiv)`
 	flex-direction: row;
@@ -138,7 +123,7 @@ function SignUp() {
 		<CenteredDiv
 			style={{ display: "inline-block", fontFamily: "sans-serif" }}
 		>
-			<ContainerDiv>
+			<ContainerDiv style={{minWidth: "30vw"}}>
 				<form
 					style={{
 						display: "inline-flex",

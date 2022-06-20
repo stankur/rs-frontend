@@ -19,6 +19,7 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 
 import styled from "styled-components";
 import Loader from "../../commonComponents/LoadingLoader/Loader";
+import Title from "../../commonComponents/Title";
 import ShadowedHighlightedText from "../../commonComponents/OfferPanel/ShadowedHighlightedText";
 
 const PageContainer = styled(ContainerDiv)`
@@ -104,13 +105,6 @@ const CardsContainer = styled(ContainerDiv)`
 	min-height: 50px;
 `;
 
-const Title = styled(HighlightedText)`
-	display: inline-flex;
-	flex-direction: column;
-	gap: 9px;
-
-	box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-`;
 
 const CurrentRoomsTitle = styled(Title).attrs(() => ({
 	backgroundColor: "#f4e0f8e6",

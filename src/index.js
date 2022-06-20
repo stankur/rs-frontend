@@ -6,6 +6,7 @@ import AllOffers from "./routes/AllOffers/AllOffers";
 import MyOffers from "./routes/MyOffers";
 import NewOffer from "./routes/NewOffer/NewOffer";
 import Matches from "./routes/Matches";
+import OfferButler from "./routes/OfferButler/OfferButler";
 
 import SignUp from "./routes/SignUp";
 
@@ -24,6 +25,7 @@ root.render(
 					<Route path="all-offers" element={<AllOffers />} />
 					<Route path="my-offers" element={<MyOffers />} />
 					<Route path="new-offer" element={<NewOffer />} />
+					<Route path="offer-butler" element={<OfferButler />} />
 					<Route path="/matches" element={<Matches />} />
 					<Route path="authentication/sign-up" element={<SignUp />} />
 					<Route path="authentication/log-in" element={<LogIn />} />

@@ -64,7 +64,7 @@ function LogIn() {
 			<CenteredDiv
 				style={{ display: "inline-block", fontFamily: "sans-serif" }}
 			>
-				<ContainerDiv>
+				<ContainerDiv style={{minWidth: "30vw"}}>
 					{submitError && <div>{submitError}</div>}
 					<span>Username</span>
 
