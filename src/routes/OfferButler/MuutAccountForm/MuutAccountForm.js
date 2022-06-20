@@ -1,8 +1,5 @@
-import { transform } from "lodash";
 import React, { useEffect, useState } from "react";
-import Loader from "../../../commonComponents/LoadingLoader/Loader";
 import ContainerDiv from "../../../commonComponents/OfferPanel/ContainerDiv";
-import ShadowedHighlightedText from "../../../commonComponents/OfferPanel/ShadowedHighlightedText";
 
 import styled from "styled-components";
 
@@ -10,9 +7,6 @@ import globalData from "../../../globalData";
 import CustomMuutAccountForm from "./CustomMuutAccountForm";
 import Title from "../../../commonComponents/Title";
 import ErrorNotification from "../../../commonComponents/Notification/ErrorNotification";
-
-import useHasMuutAccount from "../../../hooks/forum-bot/useHasMuutAccount";
-
 
 const AccountTypeSlider = styled(ContainerDiv)`
 	width: 10px;
@@ -25,7 +19,6 @@ const AccountTypeSlider = styled(ContainerDiv)`
 	left: ${(props) => (props.isDefaultAccountType ? "4px" : "56px")};
 	transition: all 100ms ease-in-out;
 `;
-
 
 const AccountTypePicker = function ({
 	isDefaultAccountType,
@@ -74,9 +67,8 @@ const AccountTypePicker = function ({
 	);
 };
 
-const MuutAccountForm = function ({ userData }) {
+const MuutAccountForm = function ({ userData, muutAccount, requestUpdate }) {
 	const [isDefaultAccountType, setIsDefaultAccountType] = useState(true);
-	const [muutAccount, requestUpdate] = useHasMuutAccount(userData);
 
 	const [submitError, setSubmitError] = useState(false);
 	const [requestChangeAccount, setRequestChangeAccount] = useState(false);
@@ -163,10 +155,6 @@ const MuutAccountForm = function ({ userData }) {
 
 	const handleCancelChangeAccount = () => setRequestChangeAccount(false);
 
-	if (muutAccount === undefined) {
-		return <Loader />;
-	}
-
 	if (muutAccount && !requestChangeAccount) {
 		return (
 			<ContainerDiv
@@ -185,16 +173,20 @@ const MuutAccountForm = function ({ userData }) {
 						post.
 					</div>
 				</Title>
-				<div>This is your registered UBC Housing Forum Account: </div>
-				<div>
-					<span style={{ fontWeight: "bold" }}>Username: </span>
-					<span>{muutAccount["username"]}</span>
-				</div>
-
-				<button
-					style={{ flexGrow: 1 }}
-					onClick={() => setRequestChangeAccount(true)}
+				<div
+					style={{
+						flexGrow: 1,
+					}}
 				>
+					<div>
+						This is your registered UBC Housing Forum Account:{" "}
+					</div>
+					<div>
+						<span style={{ fontWeight: "bold" }}>Username: </span>
+						<span>{muutAccount["username"]}</span>
+					</div>
+				</div>
+				<button onClick={() => setRequestChangeAccount(true)}>
 					Change Housing Account
 				</button>
 			</ContainerDiv>
@@ -231,14 +223,25 @@ const MuutAccountForm = function ({ userData }) {
 					style={{
 						display: "flex",
 						flexDirection: "column",
+                        flexGrow: 1,
 						gap: "10px",
 					}}
 				>
-					<div style={{ display: "flex", gap: "30px", justifyContent:"center", paddingBottom:"15px" }}>
+					<div
+						style={{
+							display: "flex",
+							flexGrow: 1,
+							gap: "30px",
+							justifyContent: "center",
+                            alignItems: "center",
+							paddingBottom: "15px",
+						}}
+					>
 						<img
 							src="/plainButler.png"
 							alt="Room Switch Butler"
 							width="70px"
+                            height="70px"
 						/>
 						<div
 							style={{
@@ -264,14 +267,12 @@ const MuutAccountForm = function ({ userData }) {
 					</div>
 					{requestChangeAccount && (
 						<button
-							style={{ flexGrow: 1 }}
 							onClick={handleCancelChangeAccount}
 						>
 							Cancel Change Account
 						</button>
 					)}
 					<button
-						style={{ flexGrow: 1 }}
 						onClick={handleUseDefaultAccount}
 					>
 						Use This Account

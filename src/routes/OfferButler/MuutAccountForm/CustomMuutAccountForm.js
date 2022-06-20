@@ -24,7 +24,7 @@ function CustomMuutAccountForm({
 
 	useEffect(() => {
 		return setSubmitError(false);
-	}, [userData]);
+	}, [userData, muutPassword, muutUsername]);
 
 	const handleMuutUsernameChange = (event) => {
 		const newValue = event.target.value;
@@ -62,7 +62,9 @@ function CustomMuutAccountForm({
 			style={{
 				display: "flex",
 				flexDirection: "column",
-				gap: "10px",
+				gap: "20px",
+				flexGrow: 1,
+				justifyContent: "center",
 			}}
 			onSubmit={(event) => {
 				event.preventDefault();
@@ -86,59 +88,71 @@ function CustomMuutAccountForm({
 				return submitMuutCredentials(muutUsername, muutPassword);
 			}}
 		>
-			<Title
-				style={{ backgroundColor: "#fcf0f0", fontWeight: "lighter" }}
+			<div
+				style={{
+					flexGrow: 1,
+					display: "flex",
+					flexDirection: "column",
+					gap: "10px",
+				}}
 			>
-				<span>
-					If you want to use a custom account, the account must
-					already exist in the forum and please use a{" "}
-					<span
-						style={{
-							fontStyle: "italic",
-							fontWeight: "bold",
-							color: "#f96c6c",
-						}}
+				<Title
+					style={{
+						backgroundColor: "#fcf0f0",
+						fontWeight: "lighter",
+					}}
+				>
+					<span>
+						If you want to use a custom account, the account must
+						already exist in the forum and please use a{" "}
+						<span
+							style={{
+								fontStyle: "italic",
+								fontWeight: "bold",
+								color: "#f96c6c",
+							}}
+						>
+							non risky password
+						</span>{" "}
+						that you do not use elsewhere for the account. This is
+						because we have to keep the original form of the
+						password in our database in order for Offer Buttler to
+						be able to sign in to the forum.
+					</span>
+				</Title>
+				<label htmlFor="muutUsername">Username </label>
+				<ColoredInput
+					error={muutUsernameError}
+					type="text"
+					value={muutUsername}
+					onChange={handleMuutUsernameChange}
+					id="muutUsername"
+					style={{ flexGrow: 0 }}
+				/>
+				{!!muutUsernameError && (
+					<ErrorNotification>{muutUsernameError}</ErrorNotification>
+				)}
+				<label htmlFor="muutPassword">Password </label>
+				<ColoredInput
+					error={muutPasswordError}
+					type="password"
+					value={muutPassword}
+					onChange={handleMuutPasswordChange}
+					id="muutPassword"
+					style={{ flexGrow: 0 }}
+				/>
+				{!!muutPasswordError && (
+					<ErrorNotification>{muutPasswordError}</ErrorNotification>
+				)}
+				{requestChangeAccount && (
+					<button
+						style={{ flexGrow: 1 }}
+						onClick={cancelChangeAccount}
 					>
-						non risky password
-					</span>{" "}
-					that you do not use elsewhere for the account. This is
-					because we have to keep the original form of the password in
-					our database in order for Offer Buttler to be able to sign
-					in to the forum.
-				</span>
-			</Title>
-			<label htmlFor="muutUsername">Username </label>
-			<ColoredInput
-				error={muutUsernameError}
-				type="text"
-				value={muutUsername}
-				onChange={handleMuutUsernameChange}
-				id="muutUsername"
-			/>
-			{!!muutUsernameError && (
-				<ShadowedHighlightedText style={{ fontWeight: "lighter" }}>
-					{muutUsernameError}
-				</ShadowedHighlightedText>
-			)}
-			<label htmlFor="muutPassword">Password </label>
-			<ColoredInput
-				error={muutPasswordError}
-				type="password"
-				value={muutPassword}
-				onChange={handleMuutPasswordChange}
-				id="muutPassword"
-			/>
-			{!!muutPasswordError && (
-				<ShadowedHighlightedText style={{ fontWeight: "lighter" }}>
-					{muutPasswordError}
-				</ShadowedHighlightedText>
-			)}
-			{requestChangeAccount && (
-				<button style={{ flexGrow: 1 }} onClick={cancelChangeAccount}>
-					Cancel Change Account
-				</button>
-			)}
-
+						Cancel Change Account
+					</button>
+				)}
+			</div>
 			<button type="submit">Use This Account</button>
 			{!!submitError && (
 				<ErrorNotification>{submitError}</ErrorNotification>

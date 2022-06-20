@@ -11,6 +11,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import ShadowedHighlightedText from "../commonComponents/OfferPanel/ShadowedHighlightedText";
 import CenteredDiv from "../commonComponents/CenteredDiv";
+import ErrorNotification from "../commonComponents/Notification/ErrorNotification";
 
 const SubmitError = styled(ContainerDiv)`
 	flex-direction: row;
@@ -123,7 +124,7 @@ function SignUp() {
 		<CenteredDiv
 			style={{ display: "inline-block", fontFamily: "sans-serif" }}
 		>
-			<ContainerDiv style={{minWidth: "30vw"}}>
+			<ContainerDiv style={{ minWidth: "30vw" }}>
 				<form
 					style={{
 						display: "inline-flex",
@@ -147,11 +148,9 @@ function SignUp() {
 						onChange={handleUsernameChange}
 					/>
 					{usernameError && (
-						<ShadowedHighlightedText
-							style={{ fontWeight: "lighter" }}
-						>
+						<ErrorNotification style={{ fontWeight: "lighter" }}>
 							Must have length of at least 1
-						</ShadowedHighlightedText>
+						</ErrorNotification>
 					)}
 					<label htmlFor="password">Password</label>
 					<ColoredInput
@@ -164,11 +163,9 @@ function SignUp() {
 					/>
 
 					{passwordError && (
-						<ShadowedHighlightedText
-							style={{ fontWeight: "lighter" }}
-						>
+						<ErrorNotification style={{ fontWeight: "lighter" }}>
 							Must have length of at least 8
-						</ShadowedHighlightedText>
+						</ErrorNotification>
 					)}
 
 					<input type="submit" />
