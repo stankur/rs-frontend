@@ -39,7 +39,7 @@ const useHasPost = function (userData, muutAccount) {
 			.then((response) => response.json())
 			.then((response) => {
 				if (response["error"]) {
-                    console.log(response["error"]["message"])
+					console.log(response["error"]["message"]);
 					return setPost(false);
 				}
 
@@ -83,8 +83,8 @@ const MuutPostFooterContainer = function ({ children }) {
 	);
 };
 
-
 const MuutPostFormContainer = function ({ muutAccount, children }) {
+	console.log("this is the muut account to me: " + muutAccount);
 	return (
 		<ContainerDiv style={{ gap: "20px", minWidth: "400px" }}>
 			<div
@@ -117,17 +117,22 @@ const MuutPostFormContainer = function ({ muutAccount, children }) {
 					</ErrorNotification>
 				)}
 			</div>
-            {children}
+			{children}
 		</ContainerDiv>
 	);
 };
 
 function MuutPost({ muutAccount, userData }) {
+	const [post, requestUpdate] = useHasPost(userData, muutAccount);
+	const [requestChangeAccount, setRequestChangeAccount] = useState(false);
+
+	const [submitError, setSubmitError] = useState(false);
+
+	// states related to controlled inputs and their errors
 	const [postTitle, setPostTitle] = useState("");
 	const [postTitleError, setPostTitleError] = useState(
 		"Title is a required field"
 	);
-
 	const [postBody, setPostBody] = useState("");
 
 	const [hourInterval, setHourInterval] = useState("");
@@ -142,10 +147,6 @@ function MuutPost({ muutAccount, userData }) {
 		dayjs().format("HH:mm")
 	);
 
-	const [post, requestUpdate] = useHasPost(userData, muutAccount);
-
-	const [submitError, setSubmitError] = useState(false);
-
 	useEffect(() => {
 		setSubmitError(false);
 	}, [
@@ -156,6 +157,7 @@ function MuutPost({ muutAccount, userData }) {
 		hourInterval,
 		nextUploadDate,
 		nextUploadTime,
+        requestChangeAccount
 	]);
 
 	const handlePostTitleChange = (event) => {
@@ -255,16 +257,60 @@ function MuutPost({ muutAccount, userData }) {
 					return setSubmitError(response["error"]["message"]);
 				}
 
+				setRequestChangeAccount(false);
+
 				return requestUpdate();
 			});
 	};
 
-	if (post) {
-		return <div>good, you have posted</div>;
+	if (post && !requestChangeAccount) {
+		return (
+			<MuutPostFormContainer muutAccount={muutAccount}>
+				<MuutPostBodyContainer>
+					<div>This is your registered post information: </div>
+					<div>
+						<span style={{ fontWeight: "bold" }}>Title: </span>
+						<span>{post["title"]}</span>
+					</div>
+					<div>
+						<span style={{ fontWeight: "bold" }}>Body: </span>
+						<span>{post["body"]}</span>
+					</div>
+					<div>
+						<span style={{ fontWeight: "bold" }}>
+							Hour Interval:{" "}
+						</span>
+						<span>{post["hourInterval"]}</span>
+					</div>
+
+					<div>
+						<span style={{ fontWeight: "bold" }}>
+							Next Post Date and Time (accurate within 1 hour):{" "}
+						</span>
+						<span>
+							{dayjs(post["nextPost"]).format(
+								"ddd, D MMM YYYY [at] HH:mm a"
+							)}
+						</span>
+					</div>
+				</MuutPostBodyContainer>
+				<MuutPostFooterContainer>
+					<button
+						onClick={(event) => {
+							event.preventDefault();
+
+							return setRequestChangeAccount(true);
+						}}
+					>
+						Change Post Information
+					</button>
+				</MuutPostFooterContainer>
+			</MuutPostFormContainer>
+		);
 	}
 
 	return (
-		<MuutPostFormContainer>
+		<MuutPostFormContainer muutAccount={muutAccount}>
 			<MuutPostBodyContainer>
 				<div>
 					Title
@@ -346,17 +392,26 @@ function MuutPost({ muutAccount, userData }) {
 					<SmallerInput
 						type="time"
 						value={nextUploadTime}
-						onChange={(event) =>
-							setNextUploadTime(
-								dayjs(event.target.value).format("HH:mm")
-							)
-						}
+						onChange={(event) => {
+							return setNextUploadTime(event.target.value);
+						}}
 						style={{ flexGrow: 1 }}
 					/>
 				</div>
 			</MuutPostBodyContainer>
 			<MuutPostFooterContainer>
-				<button style={{ flexGrow: 1 }} onClick={handleUpdatePost}>
+				{requestChangeAccount && (
+					<button
+						onClick={(event) => {
+							event.preventDefault();
+
+							return setRequestChangeAccount(false);
+						}}
+					>
+						Cancel Change Post Information
+					</button>
+				)}
+				<button onClick={handleUpdatePost}>
 					Regularly Upload this Post
 				</button>
 				{!!submitError && (

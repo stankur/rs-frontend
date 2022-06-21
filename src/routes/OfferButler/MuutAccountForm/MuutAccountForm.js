@@ -84,8 +84,6 @@ const MuutAccountForm = function ({ userData, muutAccount, requestUpdate }) {
 
 	const submitMuutCredentials = (muutUsername, muutPassword) => {
 		const bearerToken = localStorage.getItem("Authorization");
-		setRequestChangeAccount(false);
-
 		if (!userData) {
 			return setSubmitError(
 				"You must be logged in to be able to set up offer butler service!"
@@ -118,6 +116,7 @@ const MuutAccountForm = function ({ userData, muutAccount, requestUpdate }) {
 				if (response["error"]) {
 					return setSubmitError(response["error"]["message"]);
 				}
+				setRequestChangeAccount(false);
 
 				return requestUpdate();
 			});
@@ -126,7 +125,6 @@ const MuutAccountForm = function ({ userData, muutAccount, requestUpdate }) {
 	const handleUseDefaultAccount = (event) => {
 		event.preventDefault();
 		const bearerToken = localStorage.getItem("Authorization");
-		setRequestChangeAccount(false);
 
 		if (!userData) {
 			return setSubmitError(
@@ -153,6 +151,8 @@ const MuutAccountForm = function ({ userData, muutAccount, requestUpdate }) {
 				if (response["error"]) {
 					return setSubmitError(response["error"]["message"]);
 				}
+
+				setRequestChangeAccount(false);
 
 				return requestUpdate();
 			});
