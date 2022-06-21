@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Title from "../../commonComponents/Title";
 import ContainerDiv from "../../commonComponents/OfferPanel/ContainerDiv";
-import useHasMuutAccount from "../../hooks/forum-bot/useHasMuutAccount";
 import SmallerInput from "../../commonComponents/OffersFilter/IntervalInput/SmallerInput";
 import ColoredInput from "../../commonComponents/ColoredInput";
 
@@ -40,6 +39,7 @@ const useHasPost = function (userData, muutAccount) {
 			.then((response) => response.json())
 			.then((response) => {
 				if (response["error"]) {
+                    console.log(response["error"]["message"])
 					return setPost(false);
 				}
 
@@ -52,6 +52,74 @@ const useHasPost = function (userData, muutAccount) {
 	};
 
 	return [post, requestUpdate];
+};
+
+const MuutPostBodyContainer = function ({ children }) {
+	return (
+		<div
+			style={{
+				display: "flex",
+				flexDirection: "column",
+				flexGrow: 1,
+				gap: "10px",
+			}}
+		>
+			{children}
+		</div>
+	);
+};
+
+const MuutPostFooterContainer = function ({ children }) {
+	return (
+		<div
+			style={{
+				display: "flex",
+				flexDirection: "column",
+				gap: "10px",
+			}}
+		>
+			{children}
+		</div>
+	);
+};
+
+
+const MuutPostFormContainer = function ({ muutAccount, children }) {
+	return (
+		<ContainerDiv style={{ gap: "20px", minWidth: "400px" }}>
+			<div
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					gap: "10px",
+				}}
+			>
+				<Title style={{ backgroundColor: "#f5f1d3e6" }}>
+					Post Information
+					<div
+						style={{
+							fontWeight: "normal",
+							textAlign: "justify",
+							textJustify: "inter-character",
+						}}
+					>
+						Relevant information about the post that will be
+						regularly uploaded to UBC Housing Forum uploaded to UBC
+						Housing Forum
+					</div>
+				</Title>
+				{!muutAccount && (
+					<ErrorNotification>
+						<span>
+							You have to register a UBC Housing Forum Account
+							before being able to set up the post information
+						</span>
+					</ErrorNotification>
+				)}
+			</div>
+            {children}
+		</ContainerDiv>
+	);
 };
 
 function MuutPost({ muutAccount, userData }) {
@@ -196,44 +264,8 @@ function MuutPost({ muutAccount, userData }) {
 	}
 
 	return (
-		<ContainerDiv style={{ gap: "20px", minWidth: "400px" }}>
-			<div
-				style={{
-					display: "flex",
-					flexDirection: "column",
-					gap: "10px",
-				}}
-			>
-				<Title style={{ backgroundColor: "#f5f1d3e6" }}>
-					Post Information
-					<div
-						style={{
-							fontWeight: "normal",
-							textAlign: "justify",
-							textJustify: "inter-character",
-						}}
-					>
-						Relevant information about the post that will be
-						regularly uploaded to UBC Housing Forum uploaded to UBC
-						Housing Forum
-					</div>
-				</Title>
-				{!muutAccount && (
-					<ErrorNotification>
-						<span>
-							You have to register a UBC Housing Forum Account
-							before being able to set up the post information
-						</span>
-					</ErrorNotification>
-				)}
-			</div>
-			<div
-				style={{
-					display: "flex",
-					flexDirection: "column",
-					gap: "10px",
-				}}
-			>
+		<MuutPostFormContainer>
+			<MuutPostBodyContainer>
 				<div>
 					Title
 					<div
@@ -322,14 +354,16 @@ function MuutPost({ muutAccount, userData }) {
 						style={{ flexGrow: 1 }}
 					/>
 				</div>
-			</div>
-			<button style={{ flexGrow: 1 }} onClick={handleUpdatePost}>
-				Regularly Upload this Post
-			</button>
-			{!!submitError && (
-				<ErrorNotification>{submitError}</ErrorNotification>
-			)}
-		</ContainerDiv>
+			</MuutPostBodyContainer>
+			<MuutPostFooterContainer>
+				<button style={{ flexGrow: 1 }} onClick={handleUpdatePost}>
+					Regularly Upload this Post
+				</button>
+				{!!submitError && (
+					<ErrorNotification>{submitError}</ErrorNotification>
+				)}
+			</MuutPostFooterContainer>
+		</MuutPostFormContainer>
 	);
 }
 

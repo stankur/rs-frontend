@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+
+import {
+	MuutAccountBodyContainer,
+	MuutAccountFooterContainer,
+} from "./commonComponents";
 import ColoredInput from "../../../commonComponents/ColoredInput";
 import ErrorNotification from "../../../commonComponents/Notification/ErrorNotification";
-import ShadowedHighlightedText from "../../../commonComponents/OfferPanel/ShadowedHighlightedText";
 import Title from "../../../commonComponents/Title";
-
 
 function CustomMuutAccountForm({
 	submitMuutCredentials,
@@ -57,45 +60,31 @@ function CustomMuutAccountForm({
 		return setMuutPassword(newValue);
 	};
 
+	const handleUpdatePost = (event) => {
+		event.preventDefault();
+
+		if (!userData) {
+			return setSubmitError(
+				"You must be logged in to be able to set up offer butler service!"
+			);
+		}
+
+		if (muutPasswordError || muutUsernameError) {
+			return setSubmitError("Invalid password or username!");
+		}
+
+		console.log(
+			"this is the muut username: " +
+				muutUsername +
+				". This is the muut password: " +
+				muutPassword
+		);
+		return submitMuutCredentials(muutUsername, muutPassword);
+	};
+
 	return (
-		<form
-			style={{
-				display: "flex",
-				flexDirection: "column",
-				gap: "20px",
-				flexGrow: 1,
-				justifyContent: "center",
-			}}
-			onSubmit={(event) => {
-				event.preventDefault();
-
-				if (!userData) {
-					return setSubmitError(
-						"You must be logged in to be able to set up offer butler service!"
-					);
-				}
-
-				if (muutPasswordError || muutUsernameError) {
-					return setSubmitError("Invalid password or username!");
-				}
-
-				console.log(
-					"this is the muut username: " +
-						muutUsername +
-						". This is the muut password: " +
-						muutPassword
-				);
-				return submitMuutCredentials(muutUsername, muutPassword);
-			}}
-		>
-			<div
-				style={{
-					flexGrow: 1,
-					display: "flex",
-					flexDirection: "column",
-					gap: "10px",
-				}}
-			>
+		<>
+			<MuutAccountBodyContainer>
 				<Title
 					style={{
 						backgroundColor: "#fcf0f0",
@@ -144,6 +133,8 @@ function CustomMuutAccountForm({
 				{!!muutPasswordError && (
 					<ErrorNotification>{muutPasswordError}</ErrorNotification>
 				)}
+			</MuutAccountBodyContainer>
+			<MuutAccountFooterContainer>
 				{requestChangeAccount && (
 					<button
 						style={{ flexGrow: 1 }}
@@ -152,12 +143,12 @@ function CustomMuutAccountForm({
 						Cancel Change Account
 					</button>
 				)}
-			</div>
-			<button type="submit">Use This Account</button>
-			{!!submitError && (
-				<ErrorNotification>{submitError}</ErrorNotification>
-			)}
-		</form>
+				<button onClick={handleUpdatePost}>Use This Account</button>
+				{!!submitError && (
+					<ErrorNotification>{submitError}</ErrorNotification>
+				)}
+			</MuutAccountFooterContainer>
+		</>
 	);
 }
 

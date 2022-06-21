@@ -5,7 +5,11 @@ import styled from "styled-components";
 
 import globalData from "../../../globalData";
 import CustomMuutAccountForm from "./CustomMuutAccountForm";
-import Title from "../../../commonComponents/Title";
+import {
+	MuutAccountBodyContainer,
+	MuutAccountFormContainer,
+	MuutAccountFooterContainer,
+} from "./commonComponents";
 import ErrorNotification from "../../../commonComponents/Notification/ErrorNotification";
 
 const AccountTypeSlider = styled(ContainerDiv)`
@@ -34,7 +38,7 @@ const AccountTypePicker = function ({
 				paddingBottom: "10px",
 				paddingLeft: "5px",
 				paddingTop: "10px",
-				borderBottom: "1px solid rgba(0, 0, 0, 0.1)",
+				borderBottom: "1px solid rgba(4, 3, 3, 0.1)",
 				borderTop: "1px solid rgba(0, 0, 0, 0.1)",
 			}}
 		>
@@ -66,6 +70,7 @@ const AccountTypePicker = function ({
 		</div>
 	);
 };
+
 
 const MuutAccountForm = function ({ userData, muutAccount, requestUpdate }) {
 	const [isDefaultAccountType, setIsDefaultAccountType] = useState(true);
@@ -156,28 +161,10 @@ const MuutAccountForm = function ({ userData, muutAccount, requestUpdate }) {
 	const handleCancelChangeAccount = () => setRequestChangeAccount(false);
 
 	if (muutAccount && !requestChangeAccount) {
+        console.log("I actually went here")
 		return (
-			<ContainerDiv
-				style={{ width: "30vw", gap: "20px", minWidth: "400px" }}
-			>
-				<Title style={{ backgroundColor: "#c9e6f2a6" }}>
-					UBC Housing Forum Account
-					<div
-						style={{
-							fontWeight: "normal",
-							textAlign: "justify",
-							textJustify: "inter-character",
-						}}
-					>
-						The account that will be used to post the scheduled
-						post.
-					</div>
-				</Title>
-				<div
-					style={{
-						flexGrow: 1,
-					}}
-				>
+			<MuutAccountFormContainer>
+				<MuutAccountBodyContainer>
 					<div>
 						This is your registered UBC Housing Forum Account:{" "}
 					</div>
@@ -185,28 +172,19 @@ const MuutAccountForm = function ({ userData, muutAccount, requestUpdate }) {
 						<span style={{ fontWeight: "bold" }}>Username: </span>
 						<span>{muutAccount["username"]}</span>
 					</div>
-				</div>
-				<button onClick={() => setRequestChangeAccount(true)}>
-					Change Housing Account
-				</button>
-			</ContainerDiv>
+				</MuutAccountBodyContainer>
+				<MuutAccountFooterContainer>
+					<button onClick={() => setRequestChangeAccount(true)}>
+						Change Housing Account
+					</button>
+				</MuutAccountFooterContainer>
+			</MuutAccountFormContainer>
 		);
 	}
+    
 
 	return (
-		<ContainerDiv style={{ width: "30vw", gap: "20px", minWidth: "400px" }}>
-			<Title style={{ backgroundColor: "#c9e6f2a6" }}>
-				UBC Housing Forum Account
-				<div
-					style={{
-						fontWeight: "normal",
-						textAlign: "justify",
-						textJustify: "inter-character",
-					}}
-				>
-					The account that will be used to post the scheduled post.
-				</div>
-			</Title>
+		<MuutAccountFormContainer>
 			<AccountTypePicker
 				isDefaultAccountType={isDefaultAccountType}
 				setIsDefaultAccountType={setIsDefaultAccountType}
@@ -219,70 +197,63 @@ const MuutAccountForm = function ({ userData, muutAccount, requestUpdate }) {
 					cancelChangeAccount={handleCancelChangeAccount}
 				/>
 			) : (
-				<div
-					style={{
-						display: "flex",
-						flexDirection: "column",
-                        flexGrow: 1,
-						gap: "10px",
-					}}
-				>
-					<div
-						style={{
-							display: "flex",
-							flexGrow: 1,
-							gap: "30px",
-							justifyContent: "center",
-                            alignItems: "center",
-							paddingBottom: "15px",
-						}}
-					>
-						<img
-							src="/plainButler.png"
-							alt="Room Switch Butler"
-							width="70px"
-                            height="70px"
-						/>
+				<>
+					<MuutAccountBodyContainer>
 						<div
 							style={{
 								display: "flex",
-								flexDirection: "column",
+								flexGrow: 1,
+								gap: "30px",
 								justifyContent: "center",
-								gap: "10px",
+								alignItems: "center",
+								paddingBottom: "15px",
 							}}
 						>
-							<div>
-								<span style={{ fontWeight: "bold" }}>
-									Display Name:{" "}
-								</span>
-								<span>RoomSwitchButler</span>
-							</div>
-							<div>
-								<span style={{ fontWeight: "bold" }}>
-									Username:{" "}
-								</span>
-								<span>testeruser</span>
+							<img
+								src="/plainButler.png"
+								alt="Room Switch Butler"
+								width="70px"
+								height="70px"
+							/>
+							<div
+								style={{
+									display: "flex",
+									flexDirection: "column",
+									justifyContent: "center",
+									gap: "10px",
+								}}
+							>
+								<div>
+									<span style={{ fontWeight: "bold" }}>
+										Display Name:{" "}
+									</span>
+									<span>RoomSwitchButler</span>
+								</div>
+								<div>
+									<span style={{ fontWeight: "bold" }}>
+										Username:{" "}
+									</span>
+									<span>testeruser</span>
+								</div>
 							</div>
 						</div>
-					</div>
-					{requestChangeAccount && (
-						<button
-							onClick={handleCancelChangeAccount}
-						>
-							Cancel Change Account
+					</MuutAccountBodyContainer>
+					<MuutAccountFooterContainer>
+						{requestChangeAccount && (
+							<button onClick={handleCancelChangeAccount}>
+								Cancel Change Account
+							</button>
+						)}
+						<button onClick={handleUseDefaultAccount}>
+							Use This Account
 						</button>
-					)}
-					<button
-						onClick={handleUseDefaultAccount}
-					>
-						Use This Account
-					</button>
-					{!!submitError && (
-						<ErrorNotification>{submitError}</ErrorNotification>
-					)}
-				</div>
+						{!!submitError && (
+							<ErrorNotification>{submitError}</ErrorNotification>
+						)}
+					</MuutAccountFooterContainer>
+				</>
 			)}
-		</ContainerDiv>
+		</MuutAccountFormContainer>
 	);
 };
 
