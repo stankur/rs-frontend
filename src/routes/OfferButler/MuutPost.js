@@ -7,52 +7,6 @@ import ColoredInput from "../../commonComponents/ColoredInput";
 import dayjs from "dayjs";
 import globalData from "../../globalData";
 import ErrorNotification from "../../commonComponents/Notification/ErrorNotification";
-const useHasPost = function (userData, muutAccount) {
-	const [post, setPost] = useState(undefined);
-	const [updateRequest, setUpdateRequest] = useState(false);
-
-	useEffect(() => {
-		if (updateRequest) {
-			setUpdateRequest(false);
-		}
-
-		if (userData === undefined || muutAccount === undefined) {
-			return console.log("user data or muut account is still undefined");
-		}
-
-		if (!userData || !muutAccount) {
-			return setPost(false);
-		}
-
-		fetch(
-			globalData.API_URL +
-				"/api/forum-bot/users/" +
-				userData.user._id +
-				"/future-posts",
-			{
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: localStorage.getItem("Authorization"),
-				},
-			}
-		)
-			.then((response) => response.json())
-			.then((response) => {
-				if (response["error"]) {
-					console.log(response["error"]["message"]);
-					return setPost(false);
-				}
-
-				return setPost(response);
-			});
-	}, [userData, updateRequest, muutAccount]);
-
-	const requestUpdate = () => {
-		return setUpdateRequest(true);
-	};
-
-	return [post, requestUpdate];
-};
 
 const MuutPostBodyContainer = function ({ children }) {
 	return (
@@ -122,8 +76,7 @@ const MuutPostFormContainer = function ({ muutAccount, children }) {
 	);
 };
 
-function MuutPost({ muutAccount, userData }) {
-	const [post, requestUpdate] = useHasPost(userData, muutAccount);
+function MuutPost({ muutAccount, userData, post, requestUpdate }) {
 	const [requestChangeAccount, setRequestChangeAccount] = useState(false);
 
 	const [submitError, setSubmitError] = useState(false);
@@ -157,7 +110,7 @@ function MuutPost({ muutAccount, userData }) {
 		hourInterval,
 		nextUploadDate,
 		nextUploadTime,
-        requestChangeAccount
+		requestChangeAccount,
 	]);
 
 	const handlePostTitleChange = (event) => {
@@ -273,8 +226,16 @@ function MuutPost({ muutAccount, userData }) {
 						<span>{post["title"]}</span>
 					</div>
 					<div>
-						<span style={{ fontWeight: "bold" }}>Body: </span>
-						<span>{post["body"]}</span>
+						<span
+							style={{
+								fontWeight: "bold",
+							}}
+						>
+							Body:{" "}
+						</span>
+						<span style={{ whiteSpace: "pre-line" }}>
+							{post["body"]}
+						</span>
 					</div>
 					<div>
 						<span style={{ fontWeight: "bold" }}>
