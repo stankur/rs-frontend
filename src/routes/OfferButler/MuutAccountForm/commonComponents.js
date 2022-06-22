@@ -33,7 +33,7 @@ const MuutAccountFooterContainer = function ({ children }) {
 
 const MuutAccountFormContainer = function ({ children }) {
 	return (
-		<ContainerDiv style={{ width: "30vw", gap: "20px", minWidth: "400px" }}>
+		<ContainerDiv style={{  gap: "20px", flexGrow: 1, flexBasis: "200px" }}>
 			<Title style={{ backgroundColor: "#c9e6f2a6" }}>
 				UBC Housing Forum Account
 				<div

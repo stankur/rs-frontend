@@ -36,7 +36,6 @@ const AccountTypePicker = function ({
 				alignItems: "center",
 				justifyContent: "center",
 				paddingBottom: "10px",
-				paddingLeft: "5px",
 				paddingTop: "10px",
 				borderBottom: "1px solid rgba(4, 3, 3, 0.1)",
 				borderTop: "1px solid rgba(0, 0, 0, 0.1)",
@@ -70,7 +69,6 @@ const AccountTypePicker = function ({
 		</div>
 	);
 };
-
 
 const MuutAccountForm = function ({ userData, muutAccount, requestUpdate }) {
 	const [isDefaultAccountType, setIsDefaultAccountType] = useState(true);
@@ -161,7 +159,7 @@ const MuutAccountForm = function ({ userData, muutAccount, requestUpdate }) {
 	const handleCancelChangeAccount = () => setRequestChangeAccount(false);
 
 	if (muutAccount && !requestChangeAccount) {
-        console.log("I actually went here")
+		console.log("I actually went here");
 		return (
 			<MuutAccountFormContainer>
 				<MuutAccountBodyContainer>
@@ -181,7 +179,6 @@ const MuutAccountForm = function ({ userData, muutAccount, requestUpdate }) {
 			</MuutAccountFormContainer>
 		);
 	}
-    
 
 	return (
 		<MuutAccountFormContainer>
@@ -189,14 +186,14 @@ const MuutAccountForm = function ({ userData, muutAccount, requestUpdate }) {
 				isDefaultAccountType={isDefaultAccountType}
 				setIsDefaultAccountType={setIsDefaultAccountType}
 			/>
-			{!isDefaultAccountType ? (
+			{!isDefaultAccountType ? 
 				<CustomMuutAccountForm
 					userData={userData}
 					submitMuutCredentials={submitMuutCredentials}
 					requestChangeAccount={requestChangeAccount}
 					cancelChangeAccount={handleCancelChangeAccount}
 				/>
-			) : (
+			 : (
 				<>
 					<MuutAccountBodyContainer>
 						<div

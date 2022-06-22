@@ -40,7 +40,7 @@ const MuutPostFooterContainer = function ({ children }) {
 const MuutPostFormContainer = function ({ muutAccount, children }) {
 	console.log("this is the muut account to me: " + muutAccount);
 	return (
-		<ContainerDiv style={{ gap: "20px", minWidth: "400px" }}>
+		<ContainerDiv style={{ gap: "20px", flexGrow: 2, flexBasis: "400px" }}>
 			<div
 				style={{
 					display: "flex",

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useOutletContext } from "react-router-dom";
 import Loader from "../../commonComponents/LoadingLoader/Loader";
 import ErrorNotification from "../../commonComponents/Notification/ErrorNotification";
@@ -7,6 +7,20 @@ import useHasPost from "../../hooks/forum-bot/useHasPost";
 
 import MuutAccountForm from "./MuutAccountForm/MuutAccountForm";
 import MuutPost from "./MuutPost";
+
+import styled from "styled-components";
+
+const FormsContainer = styled.div`
+	display: flex;
+	gap: 20px;
+	justify-content: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+
+	@media (max-width: 900px) {
+		flex-direction: column;
+	}
+`;
 
 function OfferButler() {
 	const [userData, setAuthorizationHeader] = useOutletContext();
@@ -27,15 +41,7 @@ function OfferButler() {
 					You must be logged in to use Offer Butler!
 				</ErrorNotification>
 			)}
-			<div
-				style={{
-					display: "flex",
-					gap: "20px",
-					flexWrap: "wrap",
-					justifyContent: "center",
-					padding: "10px",
-				}}
-			>
+			<FormsContainer>
 				<MuutAccountForm
 					userData={userData}
 					muutAccount={muutAccount}
@@ -47,7 +53,7 @@ function OfferButler() {
 					post={post}
 					requestUpdate={requestUpdateHasPost}
 				/>
-			</div>
+			</FormsContainer>
 		</>
 	);
 }
