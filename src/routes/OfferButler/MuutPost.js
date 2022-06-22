@@ -46,6 +46,7 @@ const MuutPostFormContainer = function ({ muutAccount, children }) {
 					display: "flex",
 					flexDirection: "column",
 					gap: "10px",
+					flexGrow: 1,
 				}}
 			>
 				<Title style={{ backgroundColor: "#f5f1d3e6" }}>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const ErrorNotification = styled(ContainerDiv)`
 	box-shadow: none;
-	background-color: #fdb3b3ff;
+	background-color: #fcd8d8ff;
 	border: 1px solid #f96c6cff;
 `;
 
