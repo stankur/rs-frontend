@@ -187,7 +187,7 @@ function App() {
 						suggestion, issues, or about anything on this website :)
 						Please know that I really appreciate your feedbacks and
 						I will immediately get back on my laptop to work on
-						suggestions for imporvements as soon as i view your
+						suggestions for improvements as soon as i view your
 						email. Thank you!
 					</span>
 				</FooterBar>
