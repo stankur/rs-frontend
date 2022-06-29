@@ -184,11 +184,9 @@ function App() {
 						want to make your experience using this website as
 						enjoyable and as useful as possible. I hope you don't
 						mind to email me at terserahskurniawan@gmail.com for any
-						suggestion, issues, or about anything on this website :)
-						Please know that I really appreciate your feedbacks and
-						I will immediately get back on my laptop to work on
-						suggestions for improvements as soon as i view your
-						email. Thank you!
+						suggestion, issues, or about anything on this website!
+						Please know that I really appreciate your feedbacks.
+						Thank you!
 					</span>
 				</FooterBar>
 			</footer>
