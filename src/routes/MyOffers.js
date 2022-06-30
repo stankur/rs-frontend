@@ -11,6 +11,8 @@ import globalData from "../globalData";
 import styled from "styled-components";
 import ErrorNotification from "../commonComponents/Notification/ErrorNotification";
 
+import useOffers from "../hooks/useOffers";
+
 const ExpandableSpan = styled.span`
 	display: inline-flex;
 	width: 100%;
@@ -57,7 +59,7 @@ const BumpButton = styled(ClickableButton).attrs(() => ({
 function MyOffers() {
 	const [userData, setAuthorizationHeader] = useOutletContext();
 
-	const [offers, setOffers] = useState(undefined);
+	const [offers, requestUpdate] = useOffers(userData);
 	const [toBeRemoved, setToBeRemoved] = useState(null);
 	const [toBeBumped, setToBeBumped] = useState(null);
 
@@ -80,6 +82,7 @@ function MyOffers() {
 						return console.log("failed to delete retrying");
 					}
 
+					requestUpdate();
 					return setToBeRemoved(null);
 				})
 				.catch((err) => console.log(Object.keys(err)));
@@ -111,25 +114,6 @@ function MyOffers() {
 		}
 	});
 
-	useEffect(() => {
-		if (!!userData) {
-			fetch(
-				globalData.API_URL +
-					"/api/users/" +
-					userData.user._id +
-					"/offers"
-			)
-				.then((response) => response.json())
-				.then((response) => {
-					if (response["error"]) {
-						return console.log(response["error"]["message"]);
-					}
-
-					return setOffers(response);
-				});
-		}
-	}, [userData, toBeRemoved]);
-
 	const navigate = useNavigate();
 	if (userData === undefined) {
 		return <Loader />;
@@ -143,7 +127,8 @@ function MyOffers() {
 		);
 	}
 
-	if (offers === undefined) {
+	if (offers === undefined || toBeRemoved) {
+		console.log("to be removed: " + toBeRemoved);
 		return <Loader />;
 	}
 
@@ -174,7 +159,6 @@ function MyOffers() {
 							<DeleteButton
 								onClick={() => {
 									setToBeRemoved(offer._id);
-									setOffers(undefined);
 								}}
 							>
 								Delete
