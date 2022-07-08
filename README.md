@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# Room Switch Forum 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## To simplify the way UBC students get the room they want 
 
-In the project directory, you can run:
+<br>
+<p align="center">
+    <img src="room-switch-whole.png">
+</p>
+<br>
 
-### `npm start`
+## Summary
+The main principles of the decisions made for this project are:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<li>Make it simple to discover offers</li>
+<li>Find matches fast</li>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<br>
 
-### `npm test`
+The products of this principles are the Room Switch Forum and the Offer Butler. 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The Room Switch Forum provides a common structure for offers which enables us to create a filter feature where users can see offers matching different criterias. When a user has listed an offer, finding matches to their specified preferences is very fast and takes no more than two clicks.
 
-### `npm run build`
+The Offer Butler uploads posts (not only about room switch, but also subletting) at a regular interval of users' own choice to [The UBC Housing Forum](https://forums.housing.ubc.ca/) to keep them from getting buried and remain discoverable to new visitors.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Problem
+[The UBC Housing Forum](https://forums.housing.ubc.ca/) has actually provided a place where people exchange rooms, but it is not tailored to facilitate room exchange. The posts are simple texts with no common structure. This makes it hard for new users to find older posts which are still open. Once a user's post gets buried and the user's post is not a room which is in a highly desirable area, the user will be left with no chance for room exchange.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Solution
+The Room Switch Forum gives a common convention for all offers to make it suitable to do programatical manipulations to help users keep their offers discoverable. Keeping offers from getting buried also only takes no more than two clicks with the "Bring Up" feture shown below. 
 
-### `npm run eject`
+<br>
+<p align="center">
+    <img src="my-offers.png">
+</p>
+<br>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The Offer Butler keeps posts from getting buried and remain discoverable in [UBC Housing Forum](https://forums.housing.ubc.ca/) by uploading posts at a regular basis to the forum while still respecting the forum by limiting the post upload interval to 24 hours.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Get Started
+Visit this [project's website](https://room-switch.herokuapp.com/) to see the various features and sign up!
