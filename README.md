@@ -27,6 +27,11 @@ The Offer Butler uploads posts at a regular interval of users' own choice to [UB
 ## Problem
 UBC has actually provided a forum ([UBC Housing Forum](https://forums.housing.ubc.ca/)) for room exchanges, but this forum is not specifically tailored to facilitate room exchange. The posts in the forum are simple texts with no common structure and only newer posts are visible. This makes it hard for new users to find older posts which are still open. Once a user's post gets buried, if the user's post is not a room which is in a highly sought after area, the user will be left with no chance for room exchange.
 
+<p align="center">
+    <img src="ubc-housing-forum.png">
+</p>
+
+
 ## Solution
 The Room Switch Forum gives a common structure for all offers to make it suitable for us to do programatical manipulations to help users keep their offers discoverable. Keeping offers from getting buried also only takes no more than two clicks with the "Bring Up" feture shown below. 
 
