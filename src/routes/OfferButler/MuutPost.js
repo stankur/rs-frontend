@@ -91,7 +91,7 @@ function MuutPost({ muutAccount, userData, post, requestUpdate }) {
 
 	const [hourInterval, setHourInterval] = useState("");
 	const [hourIntervalError, setHourIntervalError] = useState(
-		"Hour interval must be at least 24 hours"
+		"Hour interval must be at least 3 hours"
 	);
 
 	const [nextUploadDate, setNextUploadDate] = useState(
@@ -144,14 +144,8 @@ function MuutPost({ muutAccount, userData, post, requestUpdate }) {
 		}
 
 		if (!!newHourInterval && newHourInterval > 0) {
-			console.log(
-				"I got here because new hour: " +
-					newHourInterval +
-					". And, new value: " +
-					value
-			);
-			if (!(newHourInterval >= 24)) {
-				setHourIntervalError("Hour interval must be at least 24 hours");
+			if (!(newHourInterval >= 3)) {
+				setHourIntervalError("Hour interval must be at least 3 hours");
 			} else {
 				setHourIntervalError(false);
 			}
@@ -317,7 +311,7 @@ function MuutPost({ muutAccount, userData, post, requestUpdate }) {
 							color: "#f96c6c",
 						}}
 					>
-						(Min. 24 hours)
+						(Min. 3 hours)
 					</div>
 				</div>
 				<ColoredInput

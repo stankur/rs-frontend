@@ -41,7 +41,7 @@ The Room Switch Forum gives a common structure for all offers to make it suitabl
 </p>
 <br>
 
-The Offer Butler keeps posts from getting buried and remain discoverable in [UBC Housing Forum](https://forums.housing.ubc.ca/) by uploading posts at a regular basis to the forum while still respecting the forum by limiting the post upload interval to 24 hours.
+The Offer Butler keeps posts from getting buried and remain discoverable in [UBC Housing Forum](https://forums.housing.ubc.ca/) by uploading posts at a regular basis to the forum while still respecting the forum by limiting the post upload interval to 3 hours.
 
 <br>
 <p align="center">

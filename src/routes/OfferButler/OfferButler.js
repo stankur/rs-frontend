@@ -9,6 +9,7 @@ import MuutAccountForm from "./MuutAccountForm/MuutAccountForm";
 import MuutPost from "./MuutPost";
 
 import styled from "styled-components";
+import Title from "../../commonComponents/Title";
 
 const FormsContainer = styled.div`
 	display: flex;
@@ -41,6 +42,26 @@ function OfferButler() {
 					You must be logged in to use Offer Butler!
 				</ErrorNotification>
 			)}
+			<div style={{paddingBottom: "15px", paddingTop: "10px", paddingLeft: "8px"}}>
+				<div
+					style={{
+						fontWeight: "bold",
+						fontFamily: "sans-serif",
+                        paddingBottom: "10px"
+					}}
+				>
+					Offer Butler
+				</div>
+				<div
+					style={{
+						fontWeight: "normal",
+						fontFamily: "sans-serif",
+					}}
+				>
+					Offer Butler schedules your post to be posted regularly to
+					the UBC Hosusing Forum at an interval of your choice.
+				</div>
+			</div>
 			<FormsContainer>
 				<MuutAccountForm
 					userData={userData}
