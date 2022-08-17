@@ -6,7 +6,6 @@ import PreferenceForm from "./PreferenceForm";
 import RoomExpanded from "../../commonComponents/OfferPanel/RoomsInformation/RoomExpanded";
 import OnePreference from "../../commonComponents/OfferPanel/PreferencesInformation/OnePreference";
 import ContainerDiv from "../../commonComponents/OfferPanel/ContainerDiv";
-import HighlightedText from "../../commonComponents/OfferPanel/HighlightedText";
 import ErrorNotification from "../../commonComponents/Notification/ErrorNotification";
 
 import { getFilterOptions } from "../../mockData";
@@ -20,7 +19,6 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import styled from "styled-components";
 import Loader from "../../commonComponents/LoadingLoader/Loader";
 import Title from "../../commonComponents/Title";
-import ShadowedHighlightedText from "../../commonComponents/OfferPanel/ShadowedHighlightedText";
 
 const PageContainer = styled(ContainerDiv)`
 	display: inline-flex;

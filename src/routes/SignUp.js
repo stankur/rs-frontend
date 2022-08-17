@@ -93,17 +93,9 @@ function SignUp() {
 			}),
 		})
 			.then((response) => {
-				console.log(
-					"this is thhe original response: " +
-						JSON.stringify(response)
-				);
 				return response.json();
 			})
 			.then((response) => {
-				console.log(
-					"this is the parsed response: " + JSON.stringify(response)
-				);
-
 				if (response["error"]) {
 					return setSubmitError(response["error"]["message"]);
 				}
@@ -112,10 +104,6 @@ function SignUp() {
 				return navigate("/");
 			})
 			.catch((err) => {
-				console.log(
-					"this is the error: " +
-						JSON.stringify(err, Object.getOwnPropertyNames(err))
-				);
 				setSubmitError("failed to connect to the server");
 			});
 	};

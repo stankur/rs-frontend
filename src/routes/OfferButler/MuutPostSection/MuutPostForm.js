@@ -1,104 +1,74 @@
-import React, { useEffect, useState } from "react";
-import Title from "../../commonComponents/Title";
-import ContainerDiv from "../../commonComponents/OfferPanel/ContainerDiv";
-import SmallerInput from "../../commonComponents/OffersFilter/IntervalInput/SmallerInput";
-import ColoredInput from "../../commonComponents/ColoredInput";
+import React, { useState, useEffect } from "react";
+import ErrorNotification from "../../../commonComponents/Notification/ErrorNotification";
+import SmallerInput from "../../../commonComponents/OffersFilter/IntervalInput/SmallerInput";
+import ColoredInput from "../../../commonComponents/ColoredInput";
+
+import {
+	MuutPostFormContainer,
+	MuutPostBodyContainer,
+	MuutPostFooterContainer,
+} from "./commonComponents";
 
 import dayjs from "dayjs";
-import globalData from "../../globalData";
-import ErrorNotification from "../../commonComponents/Notification/ErrorNotification";
+import globalData from "../../../globalData";
 
-const MuutPostBodyContainer = function ({ children }) {
-	return (
-		<div
-			style={{
-				display: "flex",
-				flexDirection: "column",
-				flexGrow: 1,
-				gap: "10px",
-			}}
-		>
-			{children}
-		</div>
-	);
+const ifDefinedDoElse = (object, doToObject, defaultFunction) => {
+	return object ? doToObject(object) : defaultFunction();
 };
 
-const MuutPostFooterContainer = function ({ children }) {
-	return (
-		<div
-			style={{
-				display: "flex",
-				flexDirection: "column",
-				gap: "10px",
-			}}
-		>
-			{children}
-		</div>
-	);
+const ifDefinedKeyElse = (object, key, defaultValue) => {
+	return !!object ? object[key] : defaultValue;
 };
 
-const MuutPostFormContainer = function ({ muutAccount, children }) {
-	console.log("this is the muut account to me: " + muutAccount);
-	return (
-		<ContainerDiv style={{ gap: "20px", flexGrow: 2, flexBasis: "400px" }}>
-			<div
-				style={{
-					display: "flex",
-					flexDirection: "column",
-					gap: "10px",
-					flexGrow: 1,
-				}}
-			>
-				<Title style={{ backgroundColor: "#f5f1d3e6" }}>
-					Post Information
-					<div
-						style={{
-							fontWeight: "normal",
-							textAlign: "justify",
-							textJustify: "inter-character",
-						}}
-					>
-						Relevant information about the post that will be
-						regularly uploaded to UBC Housing Forum uploaded to UBC
-						Housing Forum
-					</div>
-				</Title>
-				{!muutAccount && (
-					<ErrorNotification>
-						<span>
-							You have to register a UBC Housing Forum Account
-							before being able to set up the post information
-						</span>
-					</ErrorNotification>
-				)}
-			</div>
-			{children}
-		</ContainerDiv>
-	);
+const ifDefinedElse = (object, value, defaultValue) => {
+	return !!object ? value : defaultValue;
 };
 
-function MuutPost({ muutAccount, userData, post, requestUpdate }) {
-	const [requestChangeAccount, setRequestChangeAccount] = useState(false);
-
+function MuutPostForm({
+	muutAccount,
+	userData,
+	post,
+	requestUpdate,
+	setRequestChangeAccount,
+}) {
 	const [submitError, setSubmitError] = useState(false);
 
-	// states related to controlled inputs and their errors
-	const [postTitle, setPostTitle] = useState("");
-	const [postTitleError, setPostTitleError] = useState(
-		"Title is a required field"
+	const [postTitle, setPostTitle] = useState(
+		ifDefinedKeyElse(post, "title", "")
 	);
-	const [postBody, setPostBody] = useState("");
+	const [postTitleError, setPostTitleError] = useState(
+		ifDefinedElse(post, "", "Title is a required field")
+	);
 
-	const [hourInterval, setHourInterval] = useState("");
+	const [postBody, setPostBody] = useState(
+		ifDefinedKeyElse(post, "body", "")
+	);
+
+	const [hourInterval, setHourInterval] = useState(
+		ifDefinedKeyElse(post, "hourInterval", "")
+	);
 	const [hourIntervalError, setHourIntervalError] = useState(
-		"Hour interval must be at least 3 hours"
+		ifDefinedElse(post, "", "Hour interval must be at least 3 hours")
 	);
 
 	const [nextUploadDate, setNextUploadDate] = useState(
-		dayjs().format("YYYY-MM-DD")
+		ifDefinedDoElse(
+			post,
+			(post) => dayjs(post["nextPost"]).format("YYYY-MM-DD"),
+			() => {
+				return dayjs().format("YYYY-MM-DD");
+			}
+		)
 	);
+
 	const [nextUploadTime, setNextUploadTime] = useState(
-		dayjs().format("HH:mm")
+		ifDefinedDoElse(
+			post,
+			(post) => dayjs(post["nextPost"]).format("HH:mm"),
+			() => {
+				return dayjs().format("HH:mm");
+			}
+		)
 	);
 
 	useEffect(() => {
@@ -111,7 +81,6 @@ function MuutPost({ muutAccount, userData, post, requestUpdate }) {
 		hourInterval,
 		nextUploadDate,
 		nextUploadTime,
-		requestChangeAccount,
 	]);
 
 	const handlePostTitleChange = (event) => {
@@ -211,60 +180,6 @@ function MuutPost({ muutAccount, userData, post, requestUpdate }) {
 			});
 	};
 
-	if (post && !requestChangeAccount) {
-		return (
-			<MuutPostFormContainer muutAccount={muutAccount}>
-				<MuutPostBodyContainer>
-					<div>This is your registered post information: </div>
-					<div>
-						<span style={{ fontWeight: "bold" }}>Title: </span>
-						<span>{post["title"]}</span>
-					</div>
-					<div>
-						<span
-							style={{
-								fontWeight: "bold",
-							}}
-						>
-							Body:{" "}
-						</span>
-						<span style={{ whiteSpace: "pre-line" }}>
-							{post["body"]}
-						</span>
-					</div>
-					<div>
-						<span style={{ fontWeight: "bold" }}>
-							Hour Interval:{" "}
-						</span>
-						<span>{post["hourInterval"]}</span>
-					</div>
-
-					<div>
-						<span style={{ fontWeight: "bold" }}>
-							Next Post Date and Time (accurate within 1 hour):{" "}
-						</span>
-						<span>
-							{dayjs(post["nextPost"]).format(
-								"ddd, D MMM YYYY [at] HH:mm a"
-							)}
-						</span>
-					</div>
-				</MuutPostBodyContainer>
-				<MuutPostFooterContainer>
-					<button
-						onClick={(event) => {
-							event.preventDefault();
-
-							return setRequestChangeAccount(true);
-						}}
-					>
-						Change Post Information
-					</button>
-				</MuutPostFooterContainer>
-			</MuutPostFormContainer>
-		);
-	}
-
 	return (
 		<MuutPostFormContainer muutAccount={muutAccount}>
 			<MuutPostBodyContainer>
@@ -356,7 +271,7 @@ function MuutPost({ muutAccount, userData, post, requestUpdate }) {
 				</div>
 			</MuutPostBodyContainer>
 			<MuutPostFooterContainer>
-				{requestChangeAccount && (
+				{post && (
 					<button
 						onClick={(event) => {
 							event.preventDefault();
@@ -378,4 +293,4 @@ function MuutPost({ muutAccount, userData, post, requestUpdate }) {
 	);
 }
 
-export default MuutPost;
+export default MuutPostForm;

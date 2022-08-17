@@ -24,9 +24,6 @@ const InputFields = styled.span`
 `;
 
 function IntervalInput({ inputName, notify, interval, comparatorBackgroundColor, numberHolderBackgroundColor }) {
-	console.log(
-		"IntervalInput asked to be created with interval of: " + interval
-	);
 	const isPositiveInteger = (number) => {
 		return Number.isInteger(number) && number > 0;
 	};
@@ -47,19 +44,14 @@ function IntervalInput({ inputName, notify, interval, comparatorBackgroundColor,
 			const lower = interval[0];
 			const higher = interval[1];
 
-			console.log("IntervalInput decides that ");
-
 			if (lower === higher) {
-				console.log("number is: " + lower);
 				return { number: lower, comparator: "=" };
 			}
 
 			if (higher === "Infinity") {
-				console.log("number is: " + lower);
 				return { number: lower, comparator: "≥" };
 			}
 
-			console.log("number is: " + higher);
 			return { number: higher, comparator: "≤" };
 		}
 
@@ -103,19 +95,6 @@ function IntervalInput({ inputName, notify, interval, comparatorBackgroundColor,
 	};
 
 	const changeNumber = (newNumber) => {
-		console.log(
-			"IntervalInput tried to call notify with new filter of: " +
-				JSON.stringify(
-					updateFilter(
-						convertToInterval(parseInterval().comparator, newNumber)
-					)
-				)
-		);
-		console.log(
-			"IntervalInput tried to call notify with new number of: " +
-				newNumber
-		);
-
 		notify(
 			updateFilter(
 				convertToInterval(parseInterval().comparator, newNumber)
@@ -124,7 +103,6 @@ function IntervalInput({ inputName, notify, interval, comparatorBackgroundColor,
 		);
 	};
 
-	console.log("number given to NumberHolder: " + parseInterval().number);
 	return (
 		<Container>
 			<InputTitle>{startCase(inputName) + ":"}</InputTitle>

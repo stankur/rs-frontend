@@ -75,11 +75,7 @@ function MyOffers() {
 				.then((response) => response.json())
 				.then((response) => {
 					if (response["error"]) {
-						console.log("the id: " + toBeRemoved);
-						console.log(
-							"the error: " + response["error"]["message"]
-						);
-						return console.log("failed to delete retrying");
+						return;
 					}
 
 					requestUpdate();
@@ -101,11 +97,7 @@ function MyOffers() {
 				.then((response) => response.json())
 				.then((response) => {
 					if (response["error"]) {
-						console.log("the id: " + toBeRemoved);
-						console.log(
-							"the error: " + response["error"]["message"]
-						);
-						return console.log("failed to bump retrying");
+						return;
 					}
 
 					return setToBeBumped(null);
@@ -128,7 +120,6 @@ function MyOffers() {
 	}
 
 	if (offers === undefined || toBeRemoved) {
-		console.log("to be removed: " + toBeRemoved);
 		return <Loader />;
 	}
 

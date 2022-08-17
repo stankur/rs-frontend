@@ -38,8 +38,6 @@ function Matches() {
 					return setMatches(response);
 				})
 				.catch((err) => {
-					console.log("failed to fetch");
-					console.log(err);
 					return setMatches(undefined);
 				});
 		}

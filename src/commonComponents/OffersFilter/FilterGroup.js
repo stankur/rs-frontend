@@ -97,13 +97,6 @@ function FilterGroup({
 		};
 
 		const getNotified = (updatedFilter, name) => {
-			console.log(
-				"FilterGroup with groupname of: " +
-					groupName +
-					" just got notified."
-			);
-			console.log("the subgroup name to change: " + name);
-			console.log("the old filterJSON: " + JSON.stringify(filterJSON));
 			const copyOfFilterJSON = cloneDeep(filterJSON);
 
 			if (!Object.keys(filterJSON).includes(name)) {
@@ -115,9 +108,6 @@ function FilterGroup({
 			} else {
 				copyOfFilterJSON[name] = updatedFilter;
 			}
-			console.log(
-				"the new filterJSON: " + JSON.stringify(copyOfFilterJSON)
-			);
 			return notify(copyOfFilterJSON, groupName);
 		};
 

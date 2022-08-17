@@ -4,7 +4,6 @@ import StyleableSmallSelect from "../../StyleableSmallSelect";
 
 function Comparator({ notify, comparator, backgroundColor }) {
 	const notifyNewComparator = (newOption) => {
-		console.log("I tried to call the notify new comparator");
 		notify(newOption.value);
 	};
 

@@ -16,7 +16,7 @@ function useOffers(userData) {
 				.then((response) => response.json())
 				.then((response) => {
 					if (response["error"]) {
-						return console.log(response["error"]["message"]);
+						return;
 					}
 
 					return setOffers(response);

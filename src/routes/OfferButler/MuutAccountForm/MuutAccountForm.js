@@ -88,10 +88,6 @@ const MuutAccountForm = function ({ userData, muutAccount, requestUpdate }) {
 			);
 		}
 
-		console.log(
-			"the username: " + muutUsername + ". The password: " + muutPassword
-		);
-
 		fetch(
 			globalData.API_URL +
 				"/api/forum-bot/users/" +
@@ -159,7 +155,6 @@ const MuutAccountForm = function ({ userData, muutAccount, requestUpdate }) {
 	const handleCancelChangeAccount = () => setRequestChangeAccount(false);
 
 	if (muutAccount && !requestChangeAccount) {
-		console.log("I actually went here");
 		return (
 			<MuutAccountFormContainer>
 				<MuutAccountBodyContainer>
@@ -186,14 +181,14 @@ const MuutAccountForm = function ({ userData, muutAccount, requestUpdate }) {
 				isDefaultAccountType={isDefaultAccountType}
 				setIsDefaultAccountType={setIsDefaultAccountType}
 			/>
-			{!isDefaultAccountType ? 
+			{!isDefaultAccountType ? (
 				<CustomMuutAccountForm
 					userData={userData}
 					submitMuutCredentials={submitMuutCredentials}
 					requestChangeAccount={requestChangeAccount}
 					cancelChangeAccount={handleCancelChangeAccount}
 				/>
-			 : (
+			) : (
 				<>
 					<MuutAccountBodyContainer>
 						<div

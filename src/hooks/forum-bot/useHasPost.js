@@ -11,7 +11,7 @@ const useHasPost = function (userData, muutAccount) {
 		}
 
 		if (userData === undefined || muutAccount === undefined) {
-			return console.log("user data or muut account is still undefined");
+			return;
 		}
 
 		if (!userData || !muutAccount) {
@@ -33,7 +33,6 @@ const useHasPost = function (userData, muutAccount) {
 			.then((response) => response.json())
 			.then((response) => {
 				if (response["error"]) {
-					console.log(response["error"]["message"]);
 					return setPost(false);
 				}
 

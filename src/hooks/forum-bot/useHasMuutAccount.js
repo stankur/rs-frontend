@@ -10,7 +10,7 @@ const useHasMuutAccount = function (userData) {
 			setUpdateRequest(false);
 		}
 		if (userData === undefined) {
-			return console.log("I still think that userdata is undefined");
+			return ;
 		}
 
 		if (!userData) {
