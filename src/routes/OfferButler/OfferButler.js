@@ -65,6 +65,17 @@ function OfferButler() {
 					Offer Butler schedules your post to be posted regularly to
 					the UBC Hosusing Forum at an interval of your choice.
 				</div>
+				<div
+					style={{
+						fontWeight: "bold",
+						fontFamily: "sans-serif",
+						color: "#f96c6c",
+					}}
+				>
+					<span style={{fontSize:"30px"}}>👉</span> As of August 26, 2022, Offer Butler will
+					stop uploading posts. Sorry for this, thank you for your interest and
+					we really do hope to be able help you again in the future. 
+				</div>
 			</div>
 			<FormsContainer>
 				<MuutAccountForm
