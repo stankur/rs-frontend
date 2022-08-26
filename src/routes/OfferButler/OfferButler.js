@@ -73,7 +73,7 @@ function OfferButler() {
 					}}
 				>
 					<span style={{fontSize:"30px"}}>👉</span> As of August 26, 2022, Offer Butler will
-					stop uploading posts. Sorry for this, thank you for your interest and
+					stop uploading posts. We are sorry to have to leave. Offer Buttler is run on the free tier of a service called AWS EC2 and will soon run out of quota. Thank you very much for your interest and
 					we really do hope to be able help you again in the future. 
 				</div>
 			</div>
